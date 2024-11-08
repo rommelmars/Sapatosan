@@ -1,0 +1,395 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  font-family: 'Anton', sans-serif;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-family: 'Anton', sans-serif; /* Apply Anton font to nav links */
+  font-size: 18px;
+}
+
+.promo-message {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.shop-link {
+  display: block;
+  margin-top: 5px;
+  color: #FF6347; /* Customize link color */
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.account-links {
+  display: flex;
+  gap: 20px;
+}
+
+.join-us-link {
+  color: black; /* Make "Join Us" link black */
+}
+
+.logo {
+  height: 110px; /* Adjust height as necessary */
+  width: 140px; 
+}
+
+.video-container {
+  width: 100%; /* Full width */
+  height: 400px; /* Fixed height */
+  overflow: hidden; /* Prevent overflow */
+  position: relative; /* Positioning context for absolute child */
+}
+
+.video-teaser {
+  position: absolute; /* Positioning for full coverage */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  min-height: 100%; /* Ensure it covers the height */
+  min-width: 100%; /* Ensure it covers the width */
+  transform: translate(-50%, -50%); /* Center the video */
+  object-fit: cover; /* Cover the area without distortion */
+}
+
+.featured-shoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 40px 0; /* Increase padding for more space */
+  background-color: #f8f8f8; /* Optional: Add a background color */
+}   
+
+.featured-title {
+  font-size: 48px; /* Increase font size for a more prominent title */
+  font-weight: bold; /* Make the title bold */
+  margin-bottom: 20px; /* Space below the title */
+  font-family: 'Georgia', serif; /* Change to a more title-like font */
+  text-align: center; /* Center the title */
+}
+
+.shoes-sample-container {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 10px; /* Reduce space between samples */
+  width: 100%; /* Make the container full width */
+  padding: 0 10px; /* Add horizontal padding */
+}
+
+.shoe-sample {
+  flex: 0 0 auto; /* Prevent shrinking */
+  width: 18%; /* Adjust width to fit more shoes in the row */
+  text-align: center; /* Center text */
+}
+
+.shoe-sample img {
+  width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+.shoe-sample p {
+  font-size: 18px; /* Increase font size for shoe names */
+  font-weight: bold; /* Make the text bold */
+  margin-top: 10px; /* Add some space above the text */
+}
+
+.banner-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.full-width-banner {
+  width: 100%;
+  height: auto; /* Adjusts height proportionally */
+}
+.about-us {
+  padding: 40px;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.about-us h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.about-us p {
+  font-size: 18px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 40px; /* Space before the footer */
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  height: 120px; /* Adjust the size of the logo */
+  width: auto;
+  margin-bottom: 40px;
+}
+
+.social-media-icons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #808080; /* Change color on hover */
+}
+
+.footer-bottom {
+  margin-top: 20px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Two-column layout for the modal body */
+.modal-body {
+  display: flex;
+  height: 100%;
+}
+
+/* Image section (left) */
+.modal-image {
+  flex: 1;
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire section */
+}
+
+/* Form section (right) */
+.modal-form {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-form label {
+  font-size: 14px;
+}
+
+.register-form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #e5533c;
+}
+
+modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Two-column layout for the modal body */
+.modal-body {
+  display: flex;
+  height: 100%;
+}
+
+/* Image section (left) */
+.modal-image {
+  flex: 1;
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%; /* Set to fit within container */
+  max-width: 100%; /* Ensures the image doesn’t overflow */
+  max-height: 100%; /* Ensures the height fits within the modal */
+  object-fit: contain; /* Keeps aspect ratio, fitting image within modal */
+  display: block;
+  margin: auto; /* Centers image horizontally */
+}
+
+/* Form section (right) */
+.modal-form {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sign-in-form label {
+  font-size: 14px;
+}
+
+.sign-in-form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #f51269;
+}

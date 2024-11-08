@@ -1,0 +1,70 @@
+.login-container {
+    display: flex;
+    align-items: stretch; /* Stretch items to fill the container height */
+    justify-content: center; /* Center items horizontally */
+    height: 100vh; /* Full viewport height */
+    background-color: #f0f4f8; /* Light background color */
+}
+
+.image-container {
+    flex: 1; /* Take up one part of the container */
+    display: flex;
+    justify-content: center; /* Center image horizontally */
+    align-items: center; /* Center image vertically */
+    height: 100%; /* Full height of the container */
+    padding: 0; /* Remove padding around the image */
+}
+
+.large-image {
+    width: 95%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    object-fit: cover; /* Cover the area without stretching */
+}
+
+.form-container {
+    flex: 1; /* Take up one part of the container */
+    padding: 40px; /* Increase padding for a larger form area */
+    background: rgba(238, 232, 240, 0.749); /* White background for the form */
+    border-radius: 10px; /* Rounded corners for the form */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Space below heading */
+}
+
+.login-form {
+    width: 100%; /* Full width for form */
+}
+
+.login-form input {
+    margin-bottom: 15px; /* Space between inputs */
+    padding: 10px;
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners for inputs */
+    font-size: 16px; /* Consistent font size */
+    transition: border-color 0.3s; /* Smooth transition for focus */
+    width: 100%; /* Ensure inputs take the full width */
+}
+
+.login-form input:focus {
+    border-color: #4CAF50; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+.login-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #011f02; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover */
+    width: 100%; /* Same width as the inputs */ 
+}
+
+.login-button:hover {
+    background-color: #d48d13; /* Darker green on hover */
+}

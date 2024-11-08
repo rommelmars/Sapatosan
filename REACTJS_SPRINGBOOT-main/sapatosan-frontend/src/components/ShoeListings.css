@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scroll */
+}
+
+.shoe-listings-container {
+  width: 100vw;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.logo {
+  height: 50px;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.logout-button,
+.login-link {
+  margin-left: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.teaser-video-container {
+  position: relative;
+  margin: 0;
+}
+
+.teaser-video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.hot-deals {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.shoe-listings {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.shoe-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  width: calc(20% - 20px); /* Five cards per row */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shoe-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.shoe-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.shoe-name {
+  font-size: 1.2em;
+  margin: 10px 0 5px;
+  font-weight: 700;
+}
+
+.shoe-price {
+  font-size: 1em;
+  color: green;
+  font-weight: bold;
+}
+
+.rating {
+  margin: 5px 0;
+}
+
+.star {
+  color: #ffd700;
+  font-size: 1.2em;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: red;
+  font-size: 0.9em;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+}
+
+.size-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.size-option {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.size-option:hover {
+  background-color: #f0f0f0;
+}
+
+.add-to-cart-button,
+.close-modal-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover,
+.close-modal-button:hover {
+  background-color: #555;
+}
+
+.categories-title {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.categories-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.category-box {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: calc(20% - 20px); /* Five boxes per row */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-container {
+  height: 150px;
+  overflow: hidden;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+}
+
+.category-box h3 {
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.category-box p {
+  margin: 5px 0 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  height: 120px;
+  width: auto;
+  margin-bottom: 40px;
+}
+
+.social-media-icons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #ddd;
+}
+
+.footer-bottom {
+  font-size: 0.9em;
+  margin-top: 10px;
+}
