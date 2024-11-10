@@ -29,7 +29,7 @@ public class Product {
         this.category = category;
     }
 
-    // Getters and Setters
+    // Getters and Setters abcd
     public Long getProductId() {
         return productId;
     }
