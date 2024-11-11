@@ -1,18 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Use useNavigate here
 import "./ShoesManagement.css";
 import shoeImage from './registerImage.png';
 
 function ShoesManagement() {
+    const navigate = useNavigate();  // Initialize useNavigate
     const [shoes, setShoes] = useState([]);
     const [newShoe, setNewShoe] = useState({
         name: "",
         description: "",
         price: "",
-        stock_quantity: "", // Ensure this matches the entity
+        stock_quantity: "",
         imageUrl: "",
-        productid: null // Ensure this matches the entity
+        productid: null
     });
     const [imageFile, setImageFile] = useState(null);
     const [addShoeError, setAddShoeError] = useState("");
@@ -27,10 +28,9 @@ function ShoesManagement() {
         setLoading(true);
         try {
             const response = await axios.get('http://localhost:8080/api/shoes');
-            console.log('API Response:', response.data); // Log the API response
             const shoesWithImages = response.data.map(shoe => ({
                 ...shoe,
-                imageUrl: `http://localhost:8080/images/${shoe.image}` // Adjust this based on your image path
+                imageUrl: `http://localhost:8080/images/${shoe.image}`
             }));
             setShoes(shoesWithImages);
         } catch (error) {
@@ -39,8 +39,7 @@ function ShoesManagement() {
             setLoading(false);
         }
     };
-    
-    
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewShoe((prev) => ({ ...prev, [name]: value }));
@@ -50,12 +49,18 @@ function ShoesManagement() {
         setImageFile(e.target.files[0]);
     };
 
+    const handleConfirmAction = (message, action) => {
+        if (window.confirm(message)) {
+            action();
+        }
+    };
+
     const addShoe = async () => {
         if (!newShoe.name || !newShoe.description || !newShoe.price || !newShoe.stock_quantity) {
             setAddShoeError('All fields are required.');
             return;
         }
-    
+
         const formData = new FormData();
         formData.append('name', newShoe.name);
         formData.append('description', newShoe.description);
@@ -64,36 +69,30 @@ function ShoesManagement() {
         if (imageFile) {
             formData.append('image', imageFile);
         }
-    
+
         try {
-            // Upload the shoe data
             const response = await axios.post('http://localhost:8080/api/shoes/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-    
-            // Automatically add the new shoe to the list of shoes
             const newShoeData = {
                 ...newShoe,
-                productid: response.data.productid, // Assuming the API returns the new product ID
-                imageUrl: `http://localhost:8080/images/${response.data.image}` // Set the image URL
+                productid: response.data.productid,
+                imageUrl: `http://localhost:8080/images/${response.data.image}`
             };
-    
-            setShoes((prevShoes) => [...prevShoes, newShoeData]); // Add new shoe to the list
-            console.log('Shoe added successfully');
+            setShoes((prevShoes) => [...prevShoes, newShoeData]);
             resetForm();
         } catch (error) {
             console.error('Failed to add shoe:', error);
             setAddShoeError('Failed to add shoe: ' + error.message);
         }
     };
-    
 
     const updateShoe = async () => {
         if (!newShoe.productid) {
             setAddShoeError('No product selected for update.');
             return;
         }
-    
+
         const formData = new FormData();
         formData.append('name', newShoe.name);
         formData.append('description', newShoe.description);
@@ -102,22 +101,23 @@ function ShoesManagement() {
         if (imageFile) {
             formData.append('image', imageFile);
         }
-    
-        try {
-            await axios.put(`http://localhost:8080/api/shoes/${newShoe.productid}/update`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            console.log("Shoe updated successfully");
-            fetchShoes();
-            resetForm();
-        } catch (error) {
-            console.error("Failed to update shoe:", error);
-            setAddShoeError('Failed to update shoe: ' + error.message);
-        }
+
+        handleConfirmAction("Are you sure you want to update this record?", async () => {
+            try {
+                await axios.put(`http://localhost:8080/api/shoes/${newShoe.productid}/update`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                fetchShoes();
+                resetForm();
+            } catch (error) {
+                console.error("Failed to update shoe:", error);
+                setAddShoeError('Failed to update shoe: ' + error.message);
+            }
+        });
     };
 
     const deleteShoe = async (id) => {
-        if (window.confirm("Are you sure you want to delete this shoe?")) {
+        handleConfirmAction("Are you sure you want to delete this record?", async () => {
             try {
                 await axios.delete(`http://localhost:8080/api/shoes/${id}`);
                 fetchShoes();
@@ -125,7 +125,7 @@ function ShoesManagement() {
                 console.error("Failed to delete shoe:", error);
                 setAddShoeError('Failed to delete shoe: ' + error.message);
             }
-        }
+        });
     };
 
     const resetForm = () => {
@@ -140,28 +140,33 @@ function ShoesManagement() {
             name: shoe.name,
             description: shoe.description,
             price: shoe.price,
-            stock_quantity: shoe.stock_quantity, // Ensure this matches the entity
+            stock_quantity: shoe.stock_quantity,
             imageUrl: shoe.imageUrl,
-            productid: shoe.productid // Make sure this matches the field name in your ShoesEntity
+            productid: shoe.productid
         });
-        setIsEditMode(true); // Ensure edit mode is activated
+        setIsEditMode(true);
+    };
+
+    const restrictNumericInput = (e) => {
+        if (/\D/.test(e.key)) {
+            e.preventDefault();
+        }
     };
 
     return (
         <div className="shoes-management-page">
             <header className="shoes-management-header">
-            <Link to="/"> {/* Link to navigate back to HomePage */}
-                    <img src={shoeImage} alt="Logo" className="shoes-management-logo" />
+                <Link to="/">
+                    <img src={shoeImage} alt="Logo" className="shoes-management-logo" onClick={() => navigate('/')} />
                 </Link>
-                
                 <h2>Shoes Management</h2>
             </header>
             {addShoeError && <p className="error">{addShoeError}</p>}
             <div className="product-form">
                 <input name="name" placeholder="Shoe Name" onChange={handleInputChange} value={newShoe.name} required />
                 <input name="description" placeholder="Description" onChange={handleInputChange} value={newShoe.description} required />
-                <input name="price" placeholder="Price" onChange={handleInputChange} value={newShoe.price} required />
-                <input name="stock_quantity" placeholder="Stock" onChange={handleInputChange} value={newShoe.stock_quantity} required />
+                <input name="price" placeholder="Price" onChange={handleInputChange} value={newShoe.price} onKeyPress={restrictNumericInput} required />
+                <input name="stock_quantity" placeholder="Stock" onChange={handleInputChange} value={newShoe.stock_quantity} onKeyPress={restrictNumericInput} required />
                 <input type="file" onChange={handleImageChange} accept="image/*" />
                 {newShoe.imageUrl && !imageFile && (
                     <div>
@@ -169,9 +174,14 @@ function ShoesManagement() {
                         <img src={newShoe.imageUrl} alt={newShoe.name} width="50" />
                     </div>
                 )}
-                <button onClick={isEditMode ? updateShoe : addShoe} disabled={loading}>
-                    {isEditMode ? "Update Shoe" : "Add Shoe"}
-                </button>
+                <button onClick={isEditMode ? updateShoe : addShoe} style={{ backgroundColor: isEditMode ? "orange" : "green" }} disabled={loading}>
+    {isEditMode ? "Update Shoe" : "Add Shoe"}
+</button>
+{isEditMode && (
+    <button onClick={resetForm} style={{ backgroundColor: "red" }} disabled={loading}>
+        Cancel
+    </button>
+)}
                 {loading && <p>Loading...</p>}
             </div>
             <table>
@@ -182,7 +192,7 @@ function ShoesManagement() {
                         <th>Description</th>
                         <th>Price</th>
                         <th>Stock</th>
-                        <th>Image</th> {/* New column for image */}
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -195,8 +205,8 @@ function ShoesManagement() {
                             <td>{shoe.price}</td>
                             <td>{shoe.stock_quantity}</td>
                             <td>
-                                {shoe.imageUrl && ( // Render the image if the imageUrl exists
-                                    <img src={shoe.imageUrl} alt={shoe.imageUrl} width="50" />
+                                {shoe.imageUrl && (
+                                    <img src={shoe.imageUrl} alt={shoe.name} width="50" />
                                 )}
                             </td>
                             <td>

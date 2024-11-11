@@ -91,3 +91,28 @@ table th {
 .product-item button:last-child:hover {
     background-color: #da190b;
 }
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
