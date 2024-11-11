@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.shoe-listings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  height: 50px;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.logout-button,
+.login-link {
+  margin-left: 10px;
+}
+
+.teaser-video-container {
+  position: relative;
+  margin: 20px 0;
+}
+
+.teaser-video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.hot-deals {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.shoe-listings {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.shoe-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  width: calc(20% - 20px); /* Five cards per row */
+  cursor: pointer;
+}
+
+.shoe-image {
+  width: 100%;
+  height: auto;
+}
+
+.shoe-name {
+  font-size: 1.2em;
+  margin: 10px 0 5px;
+}
+
+.shoe-price {
+  font-size: 1em;
+  color: green;
+}
+
+.rating {
+  margin: 5px 0;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: red;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.size-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.size-option {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px; /* Increased padding for better emphasis */
+  margin: 5px;
+  font-size: 1em; /* Emphasized font size for clarity */
+}
+
+.categories-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.categories-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap; /* Ensure categories stay in a single row */
+}
+
+.category-box {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: calc(20% - 20px); /* Five boxes per row */
+  text-align: center;
+}
+
+.video-container {
+  height: 150px; /* Set a fixed height for the video */
+  overflow: hidden; /* Hide overflow to maintain height */
+}
+
+.video-container video {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
+
+.category-box h3 {
+  margin: 10px 0 5px;
+}
+
+.category-box p {
+  margin: 5px 0 0; /* Remove the top margin */
+  font-size: 0.9em; /* Slightly smaller font size for better fit */
+}

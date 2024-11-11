@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SapatosanApplication<sapatosan>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.backend.sapatosan.SapatosanApplication",
+            "projectName": "sapatosan",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
