@@ -1,29 +1,35 @@
 package com.backend.sapatosan.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference; // Import this
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "shoes")  // Set the table name to "shoes"
+@Table(name = "shoes")
 public class ShoesEntity {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productid;  // Changed the variable name for consistency
+    private Long productid;
 
     private String name;
     private String description;
     private Double price;
-    private Integer stock_quantity;  // Keeping the snake_case as per your requirement
-
+    private Integer stock_quantity;
     private String image;
 
+    // Foreign key reference to Category
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "categoryID", nullable = false) // Foreign key column
+    @JsonBackReference // This will prevent circular serialization
+    private CategoryEntity category;
+
     // Getters and Setters
-    public Long getProductid() {  // Changed from getProductId to getProductid
-        return productid;  // Ensure it returns the snake_case field
+    public Long getProductid() {
+        return productid;
     }
 
-    public void setProductid(Long productid) {  // Changed from setProductId to setProductid
-        this.productid = productid;  // Ensure it sets the snake_case field
+    public void setProductid(Long productid) {
+        this.productid = productid;
     }
 
     public String getName() {
@@ -50,11 +56,11 @@ public class ShoesEntity {
         this.price = price;
     }
 
-    public Integer getStock_quantity() {  // Keeping the snake_case
+    public Integer getStock_quantity() {
         return stock_quantity;
     }
 
-    public void setStock_quantity(Integer stock_quantity) {  // Keeping the snake_case
+    public void setStock_quantity(Integer stock_quantity) {
         this.stock_quantity = stock_quantity;
     }
 
@@ -64,5 +70,13 @@ public class ShoesEntity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCategoryName() {
+        return category != null ? category.getCategoryName() : null;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

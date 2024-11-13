@@ -1,6 +1,7 @@
 package com.backend.sapatosan.service;
 
 import com.backend.sapatosan.entity.ShoesEntity;
+import com.backend.sapatosan.repository.CategoryRepository;
 import com.backend.sapatosan.repository.ShoesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,14 @@ public class ShoesService {
 
     @Autowired
     private ShoesRepository shoesRepository;
-
+    @Autowired
+    private CategoryRepository categoryRepository;
     // Get all shoes
     public List<ShoesEntity> getAllShoes() {
-    	
-        return shoesRepository.findAll();
-        
+        List<ShoesEntity> shoes = shoesRepository.findAll();
+        return shoes;
     }
-
+    
     // Get shoe by ID
     public Optional<ShoesEntity> getShoeById(Long id) {
         return shoesRepository.findById(id);

@@ -7,13 +7,15 @@ import shoeImage from './registerImage.png';
 function ShoesManagement() {
     const navigate = useNavigate();  // Initialize useNavigate
     const [shoes, setShoes] = useState([]);
+    const [categories, setCategories] = useState([]); // State for categories
     const [newShoe, setNewShoe] = useState({
         name: "",
         description: "",
         price: "",
         stock_quantity: "",
         imageUrl: "",
-        productid: null
+        productid: null,
+        category: "" // Add category to newShoe state
     });
     const [imageFile, setImageFile] = useState(null);
     const [originalShoe, setOriginalShoe] = useState(null);
@@ -23,6 +25,8 @@ function ShoesManagement() {
 
     useEffect(() => {
         fetchShoes();
+        fetchCategories();  // Fetch categories when the component mounts
+        
     }, []);
 
     const fetchShoes = async () => {
@@ -31,13 +35,27 @@ function ShoesManagement() {
             const response = await axios.get('http://localhost:8080/api/shoes');
             const shoesWithImages = response.data.map(shoe => ({
                 ...shoe,
-                imageUrl: `http://localhost:8080/images/${shoe.image}`
+                imageUrl: `http://localhost:8080/images/${shoe.image}`,
+                categoryName: shoe.category ? shoe.category.categoryName : "N/A"  // Safely access categoryName
             }));
             setShoes(shoesWithImages);
         } catch (error) {
             console.error('Failed to fetch shoes:', error);
         } finally {
             setLoading(false);
+        }
+    };
+    
+    
+
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/categories/getall');
+            console.log('Categories response:', response.data);  // Log the whole response
+            // Extract the content from the paginated response
+            setCategories(response.data.content);  // The 'content' field holds the categories array
+        } catch (error) {
+            console.error('Failed to fetch categories:', error);
         }
     };
 
@@ -57,20 +75,21 @@ function ShoesManagement() {
     };
 
     const addShoe = async () => {
-        if (!newShoe.name || !newShoe.description || !newShoe.price || !newShoe.stock_quantity) {
+        if (!newShoe.name || !newShoe.description || !newShoe.price || !newShoe.stock_quantity || !newShoe.category) {
             setAddShoeError('All fields are required.');
             return;
         }
-
+    
         const formData = new FormData();
         formData.append('name', newShoe.name);
         formData.append('description', newShoe.description);
         formData.append('price', newShoe.price);
         formData.append('stock_quantity', newShoe.stock_quantity);
+        formData.append('categoryID', newShoe.category);  // Updated to 'categoryID'
         if (imageFile) {
             formData.append('image', imageFile);
         }
-
+    
         try {
             const response = await axios.post('http://localhost:8080/api/shoes/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
@@ -104,6 +123,7 @@ function ShoesManagement() {
         formData.append('description', newShoe.description);
         formData.append('price', newShoe.price);
         formData.append('stock_quantity', newShoe.stock_quantity);
+        formData.append('category', newShoe.category);  // Add category to form data
     
         if (imageFile) {
             formData.append('image', imageFile);
@@ -146,7 +166,7 @@ function ShoesManagement() {
     };
 
     const resetForm = () => {
-        setNewShoe({ name: "", description: "", price: "", stock_quantity: "", imageUrl: "", productid: null });
+        setNewShoe({ name: "", description: "", price: "", stock_quantity: "", imageUrl: "", productid: null, category: "" });
         setImageFile(null);
         setAddShoeError("");
         setIsEditMode(false);
@@ -159,7 +179,8 @@ function ShoesManagement() {
             price: shoe.price,
             stock_quantity: shoe.stock_quantity,
             imageUrl: shoe.imageUrl,
-            productid: shoe.productid
+            productid: shoe.productid,
+            category: shoe.category // Set the category during edit
         });
         setOriginalShoe({
             name: shoe.name,
@@ -167,7 +188,8 @@ function ShoesManagement() {
             price: shoe.price,
             stock_quantity: shoe.stock_quantity,
             imageUrl: shoe.imageUrl,
-            productid: shoe.productid
+            productid: shoe.productid,
+            category: shoe.category
         });
         setIsEditMode(true);
     };
@@ -222,6 +244,14 @@ function ShoesManagement() {
                     required
                     className="small-input"
                 />
+<select value={newShoe.category} onChange={(e) => setNewShoe({ ...newShoe, category: e.target.value })}>
+    <option value="" disabled>Select a category</option>
+    {categories.map((category) => (
+        <option key={category.categoryID} value={category.categoryID}>
+            {category.categoryName}
+        </option>
+    ))}
+</select>
                 <input type="file" onChange={handleImageChange} accept="image/*" className="small-input" />
                 {newShoe.imageUrl && !imageFile && (
                     <div>
@@ -232,11 +262,11 @@ function ShoesManagement() {
                 <button onClick={isEditMode ? updateShoe : addShoe} style={{ backgroundColor: isEditMode ? "orange" : "green" }} disabled={loading}>
                     {isEditMode ? "Update Shoe" : "Add Shoe"}
                 </button>
-{isEditMode && (
-    <button onClick={resetForm} style={{ backgroundColor: "red" }} disabled={loading}>
-        Cancel
-    </button>
-)}
+                {isEditMode && (
+                    <button onClick={resetForm} style={{ backgroundColor: "red" }} disabled={loading}>
+                        Cancel
+                    </button>
+                )}
                 {loading && <p>Loading...</p>}
             </div>
             <table>
@@ -247,6 +277,7 @@ function ShoesManagement() {
                         <th>Description</th>
                         <th>Price</th>
                         <th>Stock</th>
+                        <th>Category</th>
                         <th>Image</th>
                         <th>Actions</th>
                     </tr>
@@ -259,6 +290,7 @@ function ShoesManagement() {
                             <td>{shoe.description}</td>
                             <td>{shoe.price}</td>
                             <td>{shoe.stock_quantity}</td>
+                            <td>{shoe.categoryName}</td>
                             <td>
                                 {shoe.imageUrl && (
                                     <img src={shoe.imageUrl} alt={shoe.name} width="50" />

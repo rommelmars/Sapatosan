@@ -1,5 +1,7 @@
 package com.backend.sapatosan.controller;
 
+import com.backend.sapatosan.entity.CategoryEntity;
+import com.backend.sapatosan.service.CategoryService;
 import com.backend.sapatosan.entity.ShoesEntity;
 import com.backend.sapatosan.service.ShoesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ShoesController {
 
     @Autowired
     private ShoesService shoesService;
+
+    @Autowired
+    private CategoryService categoryService;  // Inject CategoryService
 
     // Get all shoes
     @GetMapping
@@ -41,13 +46,15 @@ public class ShoesController {
             @RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam("price") Double price,
-            @RequestParam("stock_quantity") Integer stock_quantity) { 
+            @RequestParam("stock_quantity") Integer stock_quantity,
+            @RequestParam("categoryID") Long categoryID) { 
 
-        // Validate that the uploaded file is not empty
-        if (file.isEmpty()) {
+        // Validate that the uploaded file and other fields are not empty
+        if (file.isEmpty() || name.isEmpty() || description.isEmpty() || price == null || stock_quantity == null) {
             return ResponseEntity.badRequest().body(null);
         }
 
+        // Store the image
         String imageName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
         
@@ -57,12 +64,21 @@ public class ShoesController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+        // Fetch category from the database using categoryID
+        Optional<CategoryEntity> categoryOpt = categoryService.getCategoryById(categoryID);
+        if (!categoryOpt.isPresent()) {
+            System.out.println("Category not found with ID: " + categoryID);
+            return ResponseEntity.badRequest().body(null);  // Category not found
+        }
+
+        // Create and save the new shoe
         ShoesEntity shoe = new ShoesEntity();
         shoe.setName(name);
         shoe.setDescription(description);
         shoe.setPrice(price);
         shoe.setStock_quantity(stock_quantity);
         shoe.setImage(imageName);
+        shoe.setCategory(categoryOpt.get());  // Associate category with the shoe
 
         ShoesEntity savedShoe = shoesService.createShoe(shoe);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedShoe);
