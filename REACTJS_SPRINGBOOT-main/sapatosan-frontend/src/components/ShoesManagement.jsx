@@ -16,6 +16,7 @@ function ShoesManagement() {
         productid: null
     });
     const [imageFile, setImageFile] = useState(null);
+    const [originalShoe, setOriginalShoe] = useState(null);
     const [addShoeError, setAddShoeError] = useState("");
     const [loading, setLoading] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
@@ -80,6 +81,7 @@ function ShoesManagement() {
                 imageUrl: `http://localhost:8080/images/${response.data.image}`
             };
             setShoes((prevShoes) => [...prevShoes, newShoeData]);
+            console.log('Shoe added successfully');
             resetForm();
         } catch (error) {
             console.error('Failed to add shoe:', error);
@@ -88,33 +90,48 @@ function ShoesManagement() {
     };
 
     const updateShoe = async () => {
-        if (!newShoe.productid) {
-            setAddShoeError('No product selected for update.');
+        const isChanged = Object.keys(newShoe).some(
+            (key) => newShoe[key] !== originalShoe[key]
+        );
+    
+        if (!isChanged && !imageFile) {
+            setAddShoeError("No changes made to update.");
             return;
         }
-
+    
         const formData = new FormData();
         formData.append('name', newShoe.name);
         formData.append('description', newShoe.description);
         formData.append('price', newShoe.price);
         formData.append('stock_quantity', newShoe.stock_quantity);
+    
         if (imageFile) {
             formData.append('image', imageFile);
         }
-
+    
         handleConfirmAction("Are you sure you want to update this record?", async () => {
             try {
-                await axios.put(`http://localhost:8080/api/shoes/${newShoe.productid}/update`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
+                await axios.put(
+                    `http://localhost:8080/api/shoes/${newShoe.productid}/update`, 
+                    formData, 
+                    {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    }
+                );
                 fetchShoes();
                 resetForm();
             } catch (error) {
                 console.error("Failed to update shoe:", error);
-                setAddShoeError('Failed to update shoe: ' + error.message);
+                if (error.response) {
+                    console.error("Error data:", error.response.data);
+                    setAddShoeError('Failed to update shoe: ' + error.response.data.message || error.message);
+                } else {
+                    setAddShoeError('Failed to update shoe: ' + error.message);
+                }
             }
         });
     };
+    
 
     const deleteShoe = async (id) => {
         handleConfirmAction("Are you sure you want to delete this record?", async () => {
@@ -144,6 +161,14 @@ function ShoesManagement() {
             imageUrl: shoe.imageUrl,
             productid: shoe.productid
         });
+        setOriginalShoe({
+            name: shoe.name,
+            description: shoe.description,
+            price: shoe.price,
+            stock_quantity: shoe.stock_quantity,
+            imageUrl: shoe.imageUrl,
+            productid: shoe.productid
+        });
         setIsEditMode(true);
     };
 
@@ -163,11 +188,41 @@ function ShoesManagement() {
             </header>
             {addShoeError && <p className="error">{addShoeError}</p>}
             <div className="product-form">
-                <input name="name" placeholder="Shoe Name" onChange={handleInputChange} value={newShoe.name} required />
-                <input name="description" placeholder="Description" onChange={handleInputChange} value={newShoe.description} required />
-                <input name="price" placeholder="Price" onChange={handleInputChange} value={newShoe.price} onKeyPress={restrictNumericInput} required />
-                <input name="stock_quantity" placeholder="Stock" onChange={handleInputChange} value={newShoe.stock_quantity} onKeyPress={restrictNumericInput} required />
-                <input type="file" onChange={handleImageChange} accept="image/*" />
+                <input
+                    name="name"
+                    placeholder="Shoe Name"
+                    onChange={handleInputChange}
+                    value={newShoe.name}
+                    required
+                    className="small-input"
+                />
+                <input
+                    name="description"
+                    placeholder="Description"
+                    onChange={handleInputChange}
+                    value={newShoe.description}
+                    required
+                    className="small-input"
+                />
+                <input
+                    name="price"
+                    placeholder="Price"
+                    onChange={handleInputChange}
+                    value={newShoe.price}
+                    onKeyPress={restrictNumericInput}
+                    required
+                    className="small-input"
+                />
+                <input
+                    name="stock_quantity"
+                    placeholder="Stock"
+                    onChange={handleInputChange}
+                    value={newShoe.stock_quantity}
+                    onKeyPress={restrictNumericInput}
+                    required
+                    className="small-input"
+                />
+                <input type="file" onChange={handleImageChange} accept="image/*" className="small-input" />
                 {newShoe.imageUrl && !imageFile && (
                     <div>
                         <p>Current Image:</p>
@@ -175,8 +230,8 @@ function ShoesManagement() {
                     </div>
                 )}
                 <button onClick={isEditMode ? updateShoe : addShoe} style={{ backgroundColor: isEditMode ? "orange" : "green" }} disabled={loading}>
-    {isEditMode ? "Update Shoe" : "Add Shoe"}
-</button>
+                    {isEditMode ? "Update Shoe" : "Add Shoe"}
+                </button>
 {isEditMode && (
     <button onClick={resetForm} style={{ backgroundColor: "red" }} disabled={loading}>
         Cancel

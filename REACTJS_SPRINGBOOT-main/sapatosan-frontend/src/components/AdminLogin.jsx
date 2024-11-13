@@ -20,7 +20,7 @@ const AdminLogin = ({ onLogin }) => {
             const { token } = response.data;
 
             onLogin(token); // Pass the token to the parent component
-            navigate("/admin"); // Redirect to the admin page
+            navigate("/shoes-management"); // Redirect to the admin page
         } catch (error) {
             console.error("Login failed:", error);
             // Handle error (show a message to the user)

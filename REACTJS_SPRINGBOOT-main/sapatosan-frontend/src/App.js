@@ -10,6 +10,12 @@ import RunningShoesList from './components/RunningShoesList';
 import ShoeListings from './components/ShoeListings';
 
 function App() {
+  const [adminToken, setAdminToken] = useState(null);
+
+  const handleLogin = (token) => {
+    setAdminToken(token); // Store the token in state
+    localStorage.setItem("adminToken", token); // Also store it in localStorage if needed
+  };
   
 
   return (
@@ -21,7 +27,7 @@ function App() {
         <Route path="/add-shoe" element={<ShoeForm />} />
         <Route path="/listings" element={<ShoeListings />} />
         <Route path="/running-shoes" element={<RunningShoesList />} />
-        <Route path="/admin-login" element={<AdminPage />} />
+        <Route path="/admin-login" element={<AdminLogin onLogin={handleLogin} />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </Router>

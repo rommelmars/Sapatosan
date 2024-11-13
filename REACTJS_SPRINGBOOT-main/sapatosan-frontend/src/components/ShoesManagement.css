@@ -116,3 +116,7 @@ table th, table td {
 table th {
     background-color: #f2f2f2;
 }
+
+.small-input {
+    width: 50;
+}
