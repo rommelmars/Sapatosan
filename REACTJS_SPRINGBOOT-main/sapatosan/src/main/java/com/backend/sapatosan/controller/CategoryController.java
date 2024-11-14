@@ -35,10 +35,6 @@ public class CategoryController {
     // Create a new category
     @PostMapping("/create")
     public ResponseEntity<CategoryEntity> createCategory(@RequestBody CategoryEntity category) {
-        // Add validation here if necessary
-        if (category.getCategoryName() == null || category.getCategoryName().isEmpty()) {
-            return ResponseEntity.badRequest().body(null);
-        }
         CategoryEntity savedCategory = categoryRepository.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
     }

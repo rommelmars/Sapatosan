@@ -1,16 +1,18 @@
 package com.backend.sapatosan.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference; // Import this
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "shoes")
 public class ShoesEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productid;
-
+    
     private String name;
     private String description;
     private Double price;
@@ -18,9 +20,9 @@ public class ShoesEntity {
     private String image;
 
     // Foreign key reference to Category
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "categoryID", nullable = false) // Foreign key column
-    @JsonBackReference // This will prevent circular serialization
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "categoryID", nullable = false) 
+    @JsonBackReference // Prevent circular serialization for bidirectional relationship
     private CategoryEntity category;
 
     // Getters and Setters
@@ -72,11 +74,18 @@ public class ShoesEntity {
         this.image = image;
     }
 
-    public String getCategoryName() {
-        return category != null ? category.getCategoryName() : null;
+    // Getter for category to avoid circular serialization issues
+    public CategoryEntity getCategory() {
+        return category;
     }
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    // Method to get the category name for display purposes
+    @JsonProperty("categoryName")
+    public String getCategoryName() {
+        return category != null ? category.getCategoryName() : null;
     }
 }

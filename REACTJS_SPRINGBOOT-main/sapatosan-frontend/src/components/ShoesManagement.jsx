@@ -33,18 +33,20 @@ function ShoesManagement() {
         setLoading(true);
         try {
             const response = await axios.get('http://localhost:8080/api/shoes');
-            const shoesWithImages = response.data.map(shoe => ({
+            const shoesWithCategories = response.data.map(shoe => ({
                 ...shoe,
                 imageUrl: `http://localhost:8080/images/${shoe.image}`,
-                categoryName: shoe.category ? shoe.category.categoryName : "N/A"  // Safely access categoryName
+                categoryName: shoe.categoryName || "N/A"  // Ensuring categoryName is included
+                
             }));
-            setShoes(shoesWithImages);
+            setShoes(shoesWithCategories);
         } catch (error) {
             console.error('Failed to fetch shoes:', error);
         } finally {
             setLoading(false);
         }
     };
+    
     
     
 
@@ -283,26 +285,26 @@ function ShoesManagement() {
                     </tr>
                 </thead>
                 <tbody>
-                    {shoes.map(shoe => (
-                        <tr key={shoe.productid}>
-                            <td>{shoe.productid}</td>
-                            <td>{shoe.name}</td>
-                            <td>{shoe.description}</td>
-                            <td>{shoe.price}</td>
-                            <td>{shoe.stock_quantity}</td>
-                            <td>{shoe.categoryName}</td>
-                            <td>
-                                {shoe.imageUrl && (
-                                    <img src={shoe.imageUrl} alt={shoe.name} width="50" />
-                                )}
-                            </td>
-                            <td>
-                                <button onClick={() => handleEditClick(shoe)}>Edit</button>
-                                <button onClick={() => deleteShoe(shoe.productid)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
+    {shoes.map(shoe => (
+        <tr key={shoe.productid}>
+            <td>{shoe.productid}</td>
+            <td>{shoe.name}</td>
+            <td>{shoe.description}</td>
+            <td>{shoe.price}</td>
+            <td>{shoe.stock_quantity}</td>
+            <td>{shoe.categoryName}</td> {/* Ensure this field is mapped correctly */}
+            <td>
+                {shoe.imageUrl && (
+                    <img src={shoe.imageUrl} alt={shoe.name} width="50" />
+                )}
+            </td>
+            <td>
+                <button onClick={() => handleEditClick(shoe)}>Edit</button>
+                <button onClick={() => deleteShoe(shoe.productid)}>Delete</button>
+            </td>
+        </tr>
+    ))}
+</tbody>
             </table>
         </div>
     );

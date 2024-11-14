@@ -1,6 +1,6 @@
 package com.backend.sapatosan.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference; // Import this
+import com.fasterxml.jackson.annotation.JsonIgnore; // Import this
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -15,9 +15,9 @@ public class CategoryEntity {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
-    // One-to-many relationship with ShoesEntity
+    // Ignore this field during serialization to prevent "shoes": null in the JSON response
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference // This will serialize the list of shoes
+    @JsonIgnore // Add this annotation
     private List<ShoesEntity> shoes;
 
     // Getters and Setters
