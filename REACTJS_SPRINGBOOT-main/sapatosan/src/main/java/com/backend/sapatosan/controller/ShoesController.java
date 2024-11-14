@@ -1,5 +1,6 @@
 package com.backend.sapatosan.controller;
 
+<<<<<<< Updated upstream
 import com.backend.sapatosan.entity.CategoryEntity;
 import com.backend.sapatosan.service.CategoryService;
 import com.backend.sapatosan.entity.ShoesEntity;
@@ -10,10 +11,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+=======
+>>>>>>> Stashed changes
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.backend.sapatosan.entity.ShoesEntity;
+import com.backend.sapatosan.service.ShoesService;
 
 @RestController
 @RequestMapping("/api/shoes")
@@ -56,7 +75,7 @@ public class ShoesController {
 
         // Store the image
         String imageName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
+        File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
         
         try {
             file.transferTo(imageFile);
@@ -108,7 +127,7 @@ public class ShoesController {
         // Handle image upload
         if (image != null && !image.isEmpty()) {
             String imageName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-            File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
+            File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
              
             try {
                 image.transferTo(imageFile);
