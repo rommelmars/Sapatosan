@@ -67,23 +67,13 @@
   width: 140px; 
 }
 
-.video-container {
-  width: 100%; /* Full width */
-  height: 400px; /* Fixed height */
-  overflow: hidden; /* Prevent overflow */
-  position: relative; /* Positioning context for absolute child */
-}
+
 
 .video-teaser {
-  position: absolute; /* Positioning for full coverage */
   top: 50%; /* Center vertically */
   left: 50%; /* Center horizontally */
   width: 100%; /* Full width */
-  height: auto; /* Maintain aspect ratio */
-  min-height: 100%; /* Ensure it covers the height */
-  min-width: 100%; /* Ensure it covers the width */
-  transform: translate(-50%, -50%); /* Center the video */
-  object-fit: cover; /* Cover the area without distortion */
+
 }
 
 .featured-shoes {
@@ -205,18 +195,6 @@
 }
 
 /* Modal Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
 
 /* Modal Content */
 .modal-content {
