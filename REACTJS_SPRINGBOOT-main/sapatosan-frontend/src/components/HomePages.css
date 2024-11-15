@@ -21,7 +21,7 @@
 }
 
 .button-link:hover {
-  background-color: #0056b3; /* Darker color on hover */
+  background-color: #b403fa; /* Darker color on hover */
 }
 
 
@@ -50,7 +50,7 @@
 }
 
 .nav-links a:hover {
-  color: #007bff;
+  color: #b403fa;
 }
 
 .account-links a {
