@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../service/apiService';
 import shoe3 from './adidas.png';
 import banner from './creator.png';
-import './HomePage.css';
+import './HomePages.css';
 import logo from './logo.png';
 import shoe2 from './nike.png';
 import shoe1 from './pullsnbear.png';
@@ -11,7 +11,6 @@ import shoe4 from './puma.png';
 import shoe5 from './reebok.png';
 import registerImage from './registerImage.png';
 import teaser from './teaser.mp4';
-
 
 
 // Modal component for registration
@@ -237,7 +236,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <header className="header">
+      <header className="header1">
 
         <img src={logo} alt="Sapatosan Logo" className="logo" />
 
@@ -247,7 +246,6 @@ const HomePage = () => {
           <a href="#">Casual Shoes</a>
           <a href="#">Running Shoes</a>
           <a href="#">Soccer Shoes</a>
-          <a href="/admin-login">Admin Page</a> {/* Updated link */}
           
 
         </nav>
@@ -263,7 +261,7 @@ const HomePage = () => {
 
       <section>
 
-        <div className="video-container">
+        <div className="video-container1">
           <video className="video-teaser" autoPlay loop muted>
             <source src={teaser} type="video/mp4" />
             Your browser does not support the video tag.

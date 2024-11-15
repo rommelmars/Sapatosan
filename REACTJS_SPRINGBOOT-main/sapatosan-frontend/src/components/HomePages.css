@@ -1,80 +1,35 @@
-.header {
+.header1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  height: 100px;  /* Set a fixed height */
+  padding: 40px 20px;  /* Optional padding if needed */
   background-color: #f5f5f5;
   font-family: 'Anton', sans-serif;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
+
+.video-container1{
+  width: 100%; /* Full width */
+  height: 100vh; /* Fixed height */
+  overflow: hidden; /* Prevent overflow */
+  position: relative; /* Positioning context for absolute child */
+  
 }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: black;
-  font-family: 'Anton', sans-serif; /* Apply Anton font to nav links */
-  font-size: 18px;
-}
-
-.promo-message {
-  text-align: center;
-  flex-grow: 1;
-}
-
-.shop-link {
-  display: block;
-  margin-top: 5px;
-  color: #FF6347; /* Customize link color */
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-}
-
-.search-input {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.account-links {
-  display: flex;
-  gap: 20px;
-}
-
-.join-us-link {
-  color: black; /* Make "Join Us" link black */
-}
-
-.logo {
-  height: 110px; /* Adjust height as necessary */
-  width: 140px; 
-}
-
-
-
-.video-teaser {
+.video-container1 video{
+  position: absolute; /* Positioning for full coverage */
+  min-height: 100%; /* Ensure it covers the height */
+  min-width: 100%; /* Ensure it covers the width */
+  transform: translate(-50%, -50%); /* Center the video */
   top: 50%; /* Center vertically */
   left: 50%; /* Center horizontally */
-  width: 100%; /* Full width */
-
+  width: 80%; /* Full width */
+  height: 120%;
+  object-fit: cover;
 }
+
+
 
 .featured-shoes {
   display: flex;
@@ -85,6 +40,10 @@
   padding: 40px 0; /* Increase padding for more space */
   background-color: #f8f8f8; /* Optional: Add a background color */
 }   
+
+.featured-shoes h2{
+font-size: 80px;
+}
 
 .featured-title {
   font-size: 48px; /* Increase font size for a more prominent title */
@@ -120,7 +79,6 @@
 
 .banner-container {
   width: 100%;
-  overflow: hidden;
 }
 
 .full-width-banner {
@@ -195,6 +153,18 @@
 }
 
 /* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
 /* Modal Content */
 .modal-content {
@@ -322,15 +292,13 @@ modal-overlay {
 .modal-image {
   flex: 1;
   overflow: hidden;
+
 }
 
 .image-preview {
-  width: 100%; /* Set to fit within container */
-  max-width: 100%; /* Ensures the image doesn’t overflow */
-  max-height: 100%; /* Ensures the height fits within the modal */
-  object-fit: contain; /* Keeps aspect ratio, fitting image within modal */
-  display: block;
-  margin: auto; /* Centers image horizontally */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire section */
 }
 
 /* Form section (right) */

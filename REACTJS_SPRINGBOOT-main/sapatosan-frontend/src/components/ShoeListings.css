@@ -52,15 +52,7 @@ body, html {
   border-radius: 5px;
 }
 
-.teaser-video-container {
-  position: relative;
-  margin: 0;
-}
 
-.teaser-video {
-  width: 100%;
-  border-radius: 10px;
-}
 
 .hot-deals {
   text-align: center;
