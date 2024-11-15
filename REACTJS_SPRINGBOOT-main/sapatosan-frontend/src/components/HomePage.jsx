@@ -316,31 +316,51 @@ const HomePage = () => {
         </p>
       </div>
 
-      {/* Footer Section */}
-      <div className="footer">
-        <div className="footer-content">
-          <a href="/">
-            <img src={logo} alt="Sapatosan Logo" className="footer-logo" />
-          </a>
-          <div className="social-media-icons">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="social-icon">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="social-icon">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="social-icon">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="social-icon">
-              <i className="fab fa-tiktok"></i>
-            </a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; 2024 Sapatosan. All rights reserved.</p>
-        </div>
-      </div>
+     {/* Footer Section */}
+<div className="footer">
+  <div className="footer-content">
+    <a href="/">
+      <img src={logo} alt="Sapatosan Logo" className="footer-logo" />
+    </a>
+    <div className="social-media-icons">
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        rel="noreferrer"
+        className="social-icon"
+      >
+        <i className="fa-brands fa-facebook-f"></i>
+      </a>
+      <a
+        href="https://twitter.com"
+        target="_blank"
+        rel="noreferrer"
+        className="social-icon"
+      >
+        <i className="fa-brands fa-twitter"></i>
+      </a>
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        rel="noreferrer"
+        className="social-icon"
+      >
+        <i className="fa-brands fa-instagram"></i>
+      </a>
+      <a
+        href="https://tiktok.com"
+        target="_blank"
+        rel="noreferrer"
+        className="social-icon"
+      >
+        <i className="fa-brands fa-tiktok"></i>
+      </a>
+    </div>
+  </div>
+  <div className="footer-bottom">
+    <p>&copy; 2024 Sapatosan. All rights reserved.</p>
+  </div>
+</div>
 
       {/* Conditionally Render the Modals */}
       {isRegisterModalOpen && <RegisterModal closeModal={closeRegisterModal} />}

@@ -205,8 +205,8 @@ body, html {
 }
 
 .footer {
-  background-color: #333;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   padding: 20px 0;
   text-align: center;
   width: 100%;
@@ -226,20 +226,21 @@ body, html {
 }
 
 .social-media-icons {
+  font-size: 36px;
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
 }
 
 .social-icon {
-  color: rgb(208, 37, 37);
+  color: rgb(0, 0, 0);
   font-size: 24px;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .social-icon:hover {
-  color: #a32424;
+  color: #da05fa;
 }
 
 .footer-bottom {
