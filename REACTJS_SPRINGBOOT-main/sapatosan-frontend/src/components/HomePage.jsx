@@ -246,6 +246,8 @@ const HomePage = () => {
           <a href="#">Casual Shoes</a>
           <a href="#">Running Shoes</a>
           <a href="#">Soccer Shoes</a>
+          <a href="#">Sandals Essential</a>
+          <a href="#">Admin Page</a>
           
 
         </nav>
