@@ -1,13 +1,68 @@
 .header1 {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  height: 100px;  /* Set a fixed height */
-  padding: 40px 20px;  /* Optional padding if needed */
-  background-color: #f5f5f5;
-  font-family: 'Anton', sans-serif;
+  align-items: center;
+  padding: 1 40px; /* Reduce padding to trim height */ 
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
 }
 
+.button-link {
+  background-color: #000000; /* Button background color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Padding for size */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Show pointer cursor */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition */
+  margin-right: 10px; /* Space between buttons */
+}
+
+.button-link:hover {
+  background-color: #0056b3; /* Darker color on hover */
+}
+
+
+
+
+.logo1 {
+  height: 150px; /* Adjust the size of the logo */
+  width: auto;
+  margin-bottom: 40px;
+}
+
+.logo-container .logo1 {
+  width: 120px; /* Set logo width */
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+}
+
+.account-links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+}
+
+.account-links a:hover {
+  color: #0056b3;
+}
 
 .video-container1{
   width: 100%; /* Full width */
@@ -172,8 +227,9 @@ font-size: 80px;
   padding: 0;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  max-width: 800px;
+  max-width: 1000px; /* Increase max-width for a wider modal */
   width: 100%;
+  height: 100%; /* Adjust the height of the modal */
   display: flex;
   flex-direction: column;
   position: relative;
@@ -197,15 +253,11 @@ font-size: 80px;
 
 /* Image section (left) */
 .modal-image {
-  flex: 1;
+  flex: 2;
   overflow: hidden;
 }
 
-.image-preview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image covers the entire section */
-}
+
 
 /* Form section (right) */
 .modal-form {
@@ -246,31 +298,7 @@ font-size: 80px;
   background-color: #e5533c;
 }
 
-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
 
-/* Modal Content */
-.modal-content {
-  background-color: white;
-  padding: 0;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  max-width: 800px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
 
 .close-button {
   position: absolute;
@@ -290,15 +318,13 @@ modal-overlay {
 
 /* Image section (left) */
 .modal-image {
-  flex: 1;
+  flex: 1; /* Increase the flex value to give more space to the image */
   overflow: hidden;
-
 }
 
 .image-preview {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image covers the entire section */
 }
 
 /* Form section (right) */

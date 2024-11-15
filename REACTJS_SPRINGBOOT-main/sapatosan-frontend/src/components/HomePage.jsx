@@ -238,7 +238,7 @@ const HomePage = () => {
     <div>
       <header className="header1">
 
-        <img src={logo} alt="Sapatosan Logo" className="logo" />
+        <img src={logo} alt="Sapatosan Logo" className="logo1" />
 
         <nav className="nav-links">
 
@@ -252,9 +252,12 @@ const HomePage = () => {
 
 
         <div className="account-links">
-          <a href="#" className="join-us-link" onClick={openRegisterModal}>Join Us</a>
-          <a href="#" onClick={openSignInModal}>Sign In</a>
-        </div>
+    {/* Change Join Us link to a button */}
+    <button className="button-link" onClick={openRegisterModal}>Join Us</button>
+    
+    {/* Change Sign In link to a button */}
+    <button className="button-link" onClick={openSignInModal}>Sign In</button>
+  </div>
 
 
       </header>

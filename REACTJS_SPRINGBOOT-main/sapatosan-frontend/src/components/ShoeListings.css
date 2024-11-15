@@ -26,9 +26,7 @@ body, html {
   width: 100%;
 }
 
-.logo {
-  height: 50px;
-}
+
 
 .nav-links a {
   margin: 0 15px;
@@ -116,26 +114,7 @@ body, html {
   font-size: 0.9em;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 500px;
-  width: 90%;
-}
 
 .size-options {
   display: flex;
@@ -253,14 +232,14 @@ body, html {
 }
 
 .social-icon {
-  color: white;
+  color: rgb(208, 37, 37);
   font-size: 24px;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .social-icon:hover {
-  color: #ddd;
+  color: #a32424;
 }
 
 .footer-bottom {
