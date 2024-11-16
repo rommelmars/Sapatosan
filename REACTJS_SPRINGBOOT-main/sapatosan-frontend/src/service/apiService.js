@@ -60,7 +60,6 @@ export const deleteUser = async (id) => {
 };
 
 // Function to log in a user
-// Function to log in a user
 export const loginUser = async (email, password) => {
     try {
         // Send a POST request to the login endpoint
@@ -69,14 +68,36 @@ export const loginUser = async (email, password) => {
             password,
         });
 
-        // Debugging: Log the response data to see what the API returns
-        console.log('Login response:', response.data); // **New line added**
+        // Store the JWT token in localStorage or cookies for future requests
+        localStorage.setItem('token', response.data.token);  // Assuming token is returned
 
         return response.data; // Returns authentication response (e.g., JWT token)
     } catch (error) {
-        // Enhanced error handling
-        console.error('Error logging in user:', error.response ? error.response.data : error.message); // **Modified line**
+        console.error('Error logging in user:', error.response ? error.response.data : error.message);
         throw error; // Rethrow error for handling in component
     }
 };
 
+// Function to get current username (protected route)
+export const getCurrentUsername = async () => {
+    try {
+        // Get the token from localStorage (or cookies)
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            throw new Error('User is not authenticated');
+        }
+
+        // Send the token in the request headers for authentication
+        const response = await axios.get(`${AUTH_URL}/current`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data; // Returns the username of the currently authenticated user
+    } catch (error) {
+        console.error('Error fetching current username:', error);
+        throw error; // Rethrow error for handling in component
+    }
+};

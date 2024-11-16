@@ -12,25 +12,33 @@ import sandals from './sandals.mp4';
 import soccer from './soccer.mp4';
 import profileTeaser from './teaserprofile.mp4';
 import travisscotthigh from './travisscotthigh.png';
+import {getCurrentUsername}  from '../service/apiService';
 
 const ShoeListings = () => {
   const [user, setUser] = useState(null);
   const [selectedShoe, setSelectedShoe] = useState(null);
   const navigate = useNavigate();
+  const [username, setUsername] = useState(null); // Store username state
+  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await fetch("/api/auth/user").then(res => res.json());
-      setUser(userData);
-    };
-
-    fetchUser();
+    // Fetch the current username from the backend using the token
+    getCurrentUsername()
+      .then(response => {
+        setUsername(response.username); // Make sure to store the username directly
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching current username:", error);
+        setLoading(false);
+      });
   }, []);
 
   const handleLogout = () => {
     setUser(null);
-    navigate('/login');
+    navigate('/');
   };
+
 
   const shoes = [
     { name: 'Jordan 4 "Manila"', price: '₱15,499.00 PHP', originalPrice: '₱25,499.00 PHP', sale: true, rating: 5, image: jordan4Manila },
@@ -59,15 +67,15 @@ const ShoeListings = () => {
           <a href="#">Running Shoes</a>
           <a href="#">Soccer Shoes</a>
         </nav>
-        <div className="user-info">
-          {user ? (
-            <>
-              <span className="user-name">Hello, {user.name}</span>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
-            </>
+        <div className="user-options">
+        {loading ? (
+            <p>Loading...</p> // Show loading while fetching the username
+          ) : username ? (
+            <p>Welcome, {username}!</p> // Display the username as a string
           ) : (
-            <a href="/login" className="login-link">Login</a>
+            <p>User not authenticated</p> // Handle case when no username is returned
           )}
+           <button onClick={handleLogout} className="logout-button">Logout</button> {/* Logout button */}
         </div>
       </header>
 

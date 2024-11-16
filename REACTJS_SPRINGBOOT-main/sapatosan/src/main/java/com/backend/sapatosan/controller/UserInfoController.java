@@ -1,5 +1,5 @@
 package com.backend.sapatosan.controller;
-
+import org.springframework.security.core.Authentication;
 import com.backend.sapatosan.entity.UserInfo;
 import com.backend.sapatosan.service.UserInfoService;
 import jakarta.validation.Valid;
@@ -55,5 +55,12 @@ public class UserInfoController {
         // Delete the user and return no content status
         userInfoService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Endpoint to fetch the username of the logged-in user
+    @GetMapping("/current")
+    public ResponseEntity<String> getCurrentUser(Authentication authentication) {
+        String username = authentication.getName(); // Get the logged-in user's username
+        return ResponseEntity.ok(username); // Return the username as a response
     }
 }

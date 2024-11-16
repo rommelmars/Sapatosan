@@ -25,15 +25,18 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    // Define the security filter chain
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
         .authorizeHttpRequests()
-        .anyRequest().permitAll();  // Allow access to all paths without authentication
+        .requestMatchers("/api/user/current").authenticated() // Protect the /api/user/current endpoint
+        .anyRequest().permitAll();  // Allow access to all other paths
 
         return http.build();
     }
 
+    // Define AuthenticationManager
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
@@ -42,12 +45,13 @@ public class SecurityConfig {
         return authenticationManagerBuilder.build();
     }
 
+    // Define PasswordEncoder (BCrypt for hashing passwords)
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // CORS configuration
+    // CORS configuration for handling cross-origin requests
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

@@ -1,7 +1,25 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import './Basketballshoe.css';
+import {getCurrentUsername}  from '../service/apiService';
 
 const BasketballShoe = () => {
+  const [username, setUsername] = useState(null); // Store username state
+  const [loading, setLoading] = useState(true); // Track loading state
+
+  useEffect(() => {
+    // Fetch the current username from the backend using the token
+    getCurrentUsername()
+      .then(response => {
+        setUsername(response); // Set the fetched username
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching current username:", error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="basketball-store-container">
       {/* Header Section */}
@@ -14,7 +32,13 @@ const BasketballShoe = () => {
           <a href="#contact">Contact</a>
         </nav>
         <div className="user-options">
-          <button className="login-button">Login</button>
+        {loading ? (
+            <p>Loading...</p> // Show loading while fetching the username
+          ) : username ? (
+            <p>Welcome, {username}!</p> // Display the username
+          ) : (
+            <p>User not authenticated</p> // Handle case when no username is returned
+          )}
         </div>
       </header>
 
