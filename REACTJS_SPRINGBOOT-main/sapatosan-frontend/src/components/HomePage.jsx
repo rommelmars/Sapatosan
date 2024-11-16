@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../service/apiService';
 import shoe3 from './adidas.png';
 import banner from './creator.png';
@@ -237,17 +237,23 @@ const HomePage = () => {
   return (
     <div>
       <header className="header1">
-
-        <img src={logo} alt="Sapatosan Logo" className="logo1" />
-
+      <Link to="/">
+      <img 
+        src={logo} 
+      alt="Sapatosan Logo" 
+      className="logo1" 
+        onClick={() => window.location.reload()} 
+      style={{ cursor: 'pointer' }}
+      />
+  </Link>
         <nav className="nav-links">
 
-          <a href="#">Basketball Shoes</a>
+          <Link to="/basketball-shoes">Basketball Shoes</Link>
           <a href="#">Casual Shoes</a>
-          <a href="#">Running Shoes</a>
+          <Link to="/running-shoes">Running Shoes</Link>
           <a href="#">Soccer Shoes</a>
           <a href="#">Sandals Essential</a>
-          <a href="#">Admin Page</a>
+          <Link to="/admin-login">Admin Page</Link>
           
 
         </nav>

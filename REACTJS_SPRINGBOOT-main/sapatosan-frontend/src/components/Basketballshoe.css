@@ -50,26 +50,6 @@
     background-color: #ffa500;
   }
   
-  /* Hero Banner */
-  .hero-banner {
-    background: url('banner.jpg') no-repeat center center/cover;
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-  }
-  
-  .banner-content h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-  }
-  
-  .banner-content p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-  }
   
   .shop-now-button {
     padding: 12px 30px;

@@ -18,14 +18,6 @@ const BasketballShoe = () => {
         </div>
       </header>
 
-      {/* Hero Banner */}
-      <section className="hero-banner">
-        <div className="banner-content">
-          <h1>Discover the Best Basketball Shoes</h1>
-          <p>Performance meets style. Elevate your game with our latest collection.</p>
-          <button className="shop-now-button">Shop Now</button>
-        </div>
-      </section>
 
       {/* Featured Products Section */}
       <section className="featured-products">

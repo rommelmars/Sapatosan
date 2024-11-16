@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import AdminPage from './components/AdminPage';
 import AdminLogin from './components/AdminLogin';
-import ShoesManagement from './components/ShoesManagement';
+import AdminPage from './components/AdminPage';
+import Basketballshoe from './components/Basketballshoe';
 import HomePage from './components/HomePage';
+import RunningShoesList from './components/RunningShoesList';
 import ShoeForm from './components/ShoeForm';
 import ShoeList from './components/ShoeList';
-import RunningShoesList from './components/RunningShoesList';
 import ShoeListings from './components/ShoeListings';
+import ShoesManagement from './components/ShoesManagement';
 
 function App() {
   const [adminToken, setAdminToken] = useState(null);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/running-shoes" element={<RunningShoesList />} />
         <Route path="/admin-login" element={<AdminLogin onLogin={handleLogin} />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/basketball-shoes" element={<Basketballshoe />} />
       </Routes>
     </Router>
   );
