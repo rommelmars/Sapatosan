@@ -58,7 +58,11 @@ public class ShoesController {
 
         // Store the image
         String imageName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
+        //Joseph
+        File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+        
+        //Rommel
+        //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
         
         try {
             file.transferTo(imageFile);
@@ -117,7 +121,11 @@ public class ShoesController {
         // Handle optional image update
         if (image != null && !image.isEmpty()) {
             String imageName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-            File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\components\\customer-images\\" + imageName);
+            //Joseph
+            File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+
+            //Rommel
+            //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
              
             try {
                 image.transferTo(imageFile);
