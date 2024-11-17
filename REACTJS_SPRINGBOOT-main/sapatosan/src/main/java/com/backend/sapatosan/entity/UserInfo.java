@@ -11,6 +11,18 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private double wallet;
+
+  
+
+    public double getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(double wallet) {
+        this.wallet = wallet;
+    }
+
     @NotBlank(message = "Username is required")
     @Column(nullable = false, unique = true)
     private String username;
@@ -56,4 +68,6 @@ public class UserInfo {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    
 }

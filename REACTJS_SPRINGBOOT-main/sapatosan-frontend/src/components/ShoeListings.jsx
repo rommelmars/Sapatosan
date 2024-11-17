@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ShoeListings.css';
 import basketball from './basketball.mp4';
 import casual from './casual.mp4';
@@ -60,11 +60,11 @@ const ShoeListings = () => {
       <header className="header">
         <img src={logo} alt="Sapatosan Logo" className="logo" />
         <nav className="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Basketball Shoes</a>
+        <Link to="/basketball-shoes">Basketball Shoes</Link>
           <a href="#">Casual Shoes</a>
-          <a href="#">Running Shoes</a>
+          <Link to="#">Running Shoes</Link>
           <a href="#">Soccer Shoes</a>
+          <a href="#">Sandals Essential</a>
         </nav>
         <div className="user-options">
           {loading ? (

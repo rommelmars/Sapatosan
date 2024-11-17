@@ -81,6 +81,7 @@ const RegisterModal = ({ closeModal }) => {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
             <form className="register-form" onSubmit={handleRegisterSubmit}>
+              
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -248,9 +249,9 @@ const HomePage = () => {
   </Link>
         <nav className="nav-links">
 
-          <Link to="/basketball-shoes">Basketball Shoes</Link>
+          <Link to="#">Basketball Shoes</Link>
           <a href="#">Casual Shoes</a>
-          <Link to="/running-shoes">Running Shoes</Link>
+          <Link to="#">Running Shoes</Link>
           <a href="#">Soccer Shoes</a>
           <a href="#">Sandals Essential</a>
           <Link to="/admin-login">Admin Page</Link>

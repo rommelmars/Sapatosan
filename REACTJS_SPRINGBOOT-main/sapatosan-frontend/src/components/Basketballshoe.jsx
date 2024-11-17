@@ -1,17 +1,22 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Basketballshoe.css';
 import {getCurrentUsername}  from '../service/apiService';
+import logo from './logo.png';
 
 const BasketballShoe = () => {
   const [username, setUsername] = useState(null); // Store username state
   const [loading, setLoading] = useState(true); // Track loading state
+  const navigate = useNavigate();
+  
+
 
   useEffect(() => {
     // Fetch the current username from the backend using the token
     getCurrentUsername()
       .then(response => {
-        setUsername(response); // Set the fetched username
+        setUsername(response.username); // Make sure to store the username directly
         setLoading(false);
       })
       .catch(error => {
@@ -20,22 +25,45 @@ const BasketballShoe = () => {
       });
   }, []);
 
+  const handleLogout = () => {
+    setUsername(null);
+    navigate('/');
+  };
+
   return (
     <div className="basketball-store-container">
       {/* Header Section */}
       <header className="store-header">
-        <img src="logo.png" alt="Store Logo" className="store-logo" />
+      <img src={logo} alt="Sapatosan Logo" className="logo" />
         <nav className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#shop">Shop</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+        <Link to="/listings">Home</Link>
+        <a href="#">Home</a>
+          <Link to="/basketball-shoes">Basketball Shoes</Link>
+          <a href="#">Casual Shoes</a>
+          <Link to="#">Running Shoes</Link>
+          <a href="#">Soccer Shoes</a>
+          <a href="#">Sandals Essential</a>
         </nav>
         <div className="user-options">
-        {loading ? (
+          {loading ? (
             <p>Loading...</p> // Show loading while fetching the username
           ) : username ? (
-            <p>Welcome, {username}!</p> // Display the username
+            <div className="menu-item">
+              <p>Welcome, {username}</p>
+              <div className="submenu">
+                <span>Profile</span>
+                <span>Wallet</span>
+                <span>Orders</span>
+                <span>My cart</span>
+                <span 
+                  onClick={handleLogout} 
+                  role="button" 
+                  tabIndex="0" 
+                  aria-label="Logout">
+                  Logout
+              </span>
+              </div>
+            </div>
           ) : (
             <p>User not authenticated</p> // Handle case when no username is returned
           )}
