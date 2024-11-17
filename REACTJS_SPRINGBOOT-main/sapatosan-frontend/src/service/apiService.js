@@ -3,6 +3,7 @@ import axios from 'axios';
 // Base URL for the API
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/users';
 const AUTH_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/auth';
+const SHOES_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/shoes';
 
 // Function to create a new user
 export const createUser = async (userData) => {
@@ -101,3 +102,13 @@ export const getCurrentUsername = async () => {
         throw error; // Rethrow error for handling in component
     }
 };
+export const fetchShoes = async () => {
+    try {
+        const response = await axios.get(SHOES_URL);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching shoes:", error);
+        throw error;
+    }
+};
+
