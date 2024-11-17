@@ -17,6 +17,15 @@ body, html {
   margin: 0 auto;
   padding: 0;
 }
+.logo {
+  height: 150px; /* Adjust the size of the logo */
+  width: auto;
+  margin-bottom: 40px;
+}
+
+.logo-container .logo1 {
+  width: 120px; /* Set logo width */
+}
 
 .header {
   display: flex;
