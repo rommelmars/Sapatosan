@@ -15,7 +15,6 @@ import travisscotthigh from './travisscotthigh.png';
 import {getCurrentUsername}  from '../service/apiService';
 
 const ShoeListings = () => {
-  const [user, setUser] = useState(null);
   const [selectedShoe, setSelectedShoe] = useState(null);
   const navigate = useNavigate();
   const [username, setUsername] = useState(null); // Store username state
@@ -35,7 +34,7 @@ const ShoeListings = () => {
   }, []);
 
   const handleLogout = () => {
-    setUser(null);
+    setUsername(null);
     navigate('/');
   };
 
@@ -68,14 +67,28 @@ const ShoeListings = () => {
           <a href="#">Soccer Shoes</a>
         </nav>
         <div className="user-options">
-        {loading ? (
+          {loading ? (
             <p>Loading...</p> // Show loading while fetching the username
           ) : username ? (
-            <p>Welcome, {username}!</p> // Display the username as a string
+            <div className="menu-item">
+              <p>Welcome, {username}</p>
+              <div className="submenu">
+                <span>Profile</span>
+                <span>Wallet</span>
+                <span>Orders</span>
+                <span>My cart</span>
+                <span 
+                  onClick={handleLogout} 
+                  role="button" 
+                  tabIndex="0" 
+                  aria-label="Logout">
+                  Logout
+              </span>
+              </div>
+            </div>
           ) : (
             <p>User not authenticated</p> // Handle case when no username is returned
           )}
-           <button onClick={handleLogout} className="logout-button">Logout</button> {/* Logout button */}
         </div>
       </header>
 

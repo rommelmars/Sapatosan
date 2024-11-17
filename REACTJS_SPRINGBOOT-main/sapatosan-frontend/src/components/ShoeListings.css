@@ -39,7 +39,46 @@ body, html {
   align-items: center;
 }
 
-.logout-button,
+.user-options {
+  position: relative;
+  cursor: pointer;
+  padding: 25px;
+}
+
+/* Initially hide the submenu */
+.submenu {
+  position: absolute;
+  display: none;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 1;
+  margin-top: 5px; /* Space between the submenu items */
+  width: 150px; /* Optional: You can set the width */
+  transform: translateX(25%);
+}
+
+/* Show submenu when hovering over the menu-item */
+.user-options .menu-item:hover .submenu {
+  display: block;
+    
+}
+
+/* Style for the submenu items */
+.submenu span {
+  display: block;
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* Add hover effect for submenu items */
+.submenu span:hover {
+  background-color: #dde5ee;
+  border-radius: 5px;
+}
+
+
 .login-link {
   margin-left: 10px;
   background-color: #333;
