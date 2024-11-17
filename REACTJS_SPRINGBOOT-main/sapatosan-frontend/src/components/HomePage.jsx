@@ -329,7 +329,7 @@ const HomePage = () => {
 <div className="footer">
   <div className="footer-content">
     <a href="/">
-      <img src={logo} alt="Sapatosan Logo" className="footer-logo" />
+    <img src={logo} alt="Sapatosan Logo" className="footer-logo" onClick={() => window.location.reload()} />
     </a>
     <div className="social-media-icons">
       <a

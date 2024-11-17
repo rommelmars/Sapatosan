@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getCurrentUsername } from '../service/apiService';
 import './ShoeListings.css';
 import basketball from './basketball.mp4';
 import casual from './casual.mp4';
@@ -12,7 +13,6 @@ import sandals from './sandals.mp4';
 import soccer from './soccer.mp4';
 import profileTeaser from './teaserprofile.mp4';
 import travisscotthigh from './travisscotthigh.png';
-import {getCurrentUsername}  from '../service/apiService';
 
 const ShoeListings = () => {
   const [selectedShoe, setSelectedShoe] = useState(null);
@@ -58,7 +58,7 @@ const ShoeListings = () => {
     <div className="shoe-listings-container">
       {/* Header Section */}
       <header className="header">
-        <img src={logo} alt="Sapatosan Logo" className="logo" />
+      <img src={logo} alt="Sapatosan Logo" className="logo" onClick={() => window.location.reload()} />
         <nav className="nav-links">
         <Link to="/basketball-shoes">Basketball Shoes</Link>
           <a href="#">Casual Shoes</a>
@@ -137,16 +137,16 @@ const ShoeListings = () => {
 
       {/* Categories Section */}
       <h2 className="categories-title">Categories</h2>
-      <div className="categories-container">
-        <div className="category-box">
-          <h3>Basketball</h3>
-          <div className="video-container">
-            <video autoPlay loop muted>
-              <source src={basketball} type="video/mp4" />
-            </video>
-          </div>
-          <p>Explore our range of basketball shoes that offer premium support and style on the court.</p>
-        </div>
+<div className="categories-container">
+  <div className="category-box" onClick={() => navigate('/basketball-shoes')} style={{ cursor: 'pointer' }}>
+    <h3>Basketball</h3>
+    <div className="video-container">
+      <video autoPlay loop muted>
+        <source src={basketball} type="video/mp4" />
+      </video>
+    </div>
+    <p>Explore our range of basketball shoes that offer premium support and style on the court.</p>
+  </div>
         <div className="category-box">
           <h3>Running</h3>
           <div className="video-container">
@@ -188,9 +188,7 @@ const ShoeListings = () => {
       {/* Footer Section */}
 <div className="footer">
   <div className="footer-content">
-    <a href="/">
-      <img src={logo} alt="Sapatosan Logo" className="footer-logo" />
-    </a>
+    <img src={logo} alt="Sapatosan Logo" className="logo" onClick={() => window.location.reload()} />
     <div className="social-media-icons">
       <a
         href="https://facebook.com"
