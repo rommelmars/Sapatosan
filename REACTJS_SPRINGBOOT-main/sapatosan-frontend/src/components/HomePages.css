@@ -136,13 +136,14 @@ font-size: 80px;
 
 .shoe-sample {
   flex: 0 0 auto; /* Prevent shrinking */
-  width: 18%; /* Adjust width to fit more shoes in the row */
+  width: 19.5%; /* Adjust width to fit more shoes in the row */
   text-align: center; /* Center text */
 }
 
 .shoe-sample img {
   width: 100%; /* Make the image responsive */
   height: auto; /* Maintain aspect ratio */
+  
 }
 .shoe-sample p {
   font-size: 18px; /* Increase font size for shoe names */

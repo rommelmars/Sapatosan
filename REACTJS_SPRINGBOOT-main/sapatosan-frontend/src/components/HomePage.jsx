@@ -413,7 +413,7 @@ const HomePage = () => {
             borderRadius: '.55rem',
             transition: 'transform 0.3s ease', // Hover effect
           }}
-          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'} // Hover effect
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.3)'} // Hover effect
           onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'} // Reset on hover out
         >
           <div className="card-media" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -422,10 +422,11 @@ const HomePage = () => {
               alt={`${member.name}'s profile`}
               className="card-img"
               style={{
-                height: '150px',
-                width: '150px',
+                height: '200px',
+                width: '200px',
                 objectFit: 'cover',
                 borderRadius: '50%',
+                border: '4px solid black',
                 marginTop: '20px',
               }}
             />
