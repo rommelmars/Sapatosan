@@ -156,11 +156,36 @@ public class ShoesController {
     }
 
     // Delete a shoe
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteShoe(@PathVariable Long id) {
-        shoesService.deleteShoe(id);
-        return ResponseEntity.noContent().build();
+// Delete a shoe and its image
+@DeleteMapping("/{id}")
+public ResponseEntity<Void> deleteShoe(@PathVariable Long id) {
+    Optional<ShoesEntity> shoeOpt = shoesService.getShoeById(id);
+    if (!shoeOpt.isPresent()) {
+        return ResponseEntity.notFound().build(); // Return 404 if the shoe doesn't exist
     }
+
+    ShoesEntity shoe = shoeOpt.get();
+    // Delete the image file if it exists
+            //Joseph
+            String imagePath = "C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + shoe.getImage();
+
+            //Rommel
+            //String imagePath = "C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + shoe.getImage();
+            
+            //Mikhail
+            //String imagePath = "E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + shoe.getImage();
+    File imageFile = new File(imagePath);
+    if (imageFile.exists() && imageFile.isFile()) {
+        if (!imageFile.delete()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Return 500 if the file couldn't be deleted
+        }
+    }
+
+    // Delete the shoe record
+    shoesService.deleteShoe(id);
+    return ResponseEntity.noContent().build(); // Return 204 No Content
+}
+
 
     @GetMapping("/images/{imageName}")
     public ResponseEntity<Resource> getImage(@PathVariable String imageName) {
@@ -172,7 +197,7 @@ public class ShoesController {
             //JOSEPH
             File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
             //Rommel
-            //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imag
+            //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + image
             
             if (!imageFile.exists()) {
 
