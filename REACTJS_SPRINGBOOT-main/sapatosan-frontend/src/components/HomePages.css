@@ -366,3 +366,87 @@ font-size: 80px;
 .submit-button:hover {
   background-color: #b403fa;
 }
+
+/* Profile Card Styles */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background: linear-gradient(to bottom, var(--purple) 0%, var(--white) 60%); /* Gradient from purple to white */
+  background-clip: border-box;
+  border-radius: .55rem;
+  border: none;
+  box-shadow: none;
+  transition: all .2s ease;
+  text-align: center;
+  padding-bottom: 16px; /* Ensure there's some space at the bottom */
+}
+
+.card-media {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px; /* Add some padding to the top of the card */
+}
+
+.card-img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border-radius: 50%; /* Make the image circular */
+  margin-top: 20px;
+}
+
+.card-content {
+  padding: 16px;
+  background-color: var(--white); /* White background for the content */
+  margin-top: 20px; /* Add a gap between the image and content */
+}
+
+.card-content h5 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.card-content p {
+  font-size: 0.875rem;
+  color: var(--gray-dark);
+}
+
+.social-links {
+  margin-top: 12px;
+}
+
+.social-links .MuiIconButton-root {
+  margin-right: 8px;
+}
+
+/* Hover effect for the card */
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Social icon button color */
+.MuiIconButton-root {
+  color: var(--primary);
+}
+
+/* Ensure smooth gradient transition */
+.card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--purple) 0%, var(--white) 60%);
+  border-radius: .55rem;
+}
+.profile-section {
+  background: linear-gradient(to bottom, var(--purple) 0%, var(--white) 60%);
+  padding: 50px 0;
+}
+
+

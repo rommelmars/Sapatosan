@@ -11,6 +11,17 @@ import shoe4 from './puma.png';
 import shoe5 from './reebok.png';
 import registerImage from './registerImage.png';
 import teaser from './teaser.mp4';
+import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
+import { FaGithub } from 'react-icons/fa';
+import mikhailImage from './mikhail.png';
+import gilesImage from './giles.png';
+import ninoImage from './nino.png';
+import rommelImage from './rommel.png';
+import denzImage from './denz.png';
+
+
+
+
 
 
 // Modal component for registration
@@ -164,6 +175,8 @@ const SignInModal = ({ closeModal }) => {
       }
   };
 
+  
+  
  
 
   return (
@@ -234,6 +247,45 @@ const HomePage = () => {
   const closeSignInModal = () => {
     setIsSignInModalOpen(false);
   };
+
+  const teamMembers = [
+    {
+      name: 'Rommel John L. Pobadora',
+      image: rommelImage,
+      socialLinks: {
+        github: 'https://github.com/rommelmars',
+      },
+    },
+    {
+      name: 'Joseph Niño E. Amarillo',
+      image: ninoImage,
+      socialLinks: {
+        github: 'https://github.com/codeStreakShifu',
+      },
+    },
+    {
+      name: 'Mikhail James P Navarro',
+      image: mikhailImage,
+      socialLinks: {
+        github: 'https://github.com/MikhailAg0ny',
+      },
+    },
+    {
+      name: 'Denz Matthew A. Nadal',
+      image: denzImage,
+      socialLinks: {
+        github: 'https://github.com/MikhailAg0ny',
+      },
+    },
+    {
+      name: 'Giles Anthony I. Villamor II',
+      image: gilesImage,
+      socialLinks: {
+        github: 'https://github.com/samanthagreen',
+      },
+      
+    }
+  ];
 
   return (
     <div>
@@ -310,9 +362,87 @@ const HomePage = () => {
         </div>
       </section>
 
-      <div className="banner-container">
-        <img src={banner} alt="Full-width Banner" className="full-width-banner" />
-      </div>
+
+      <section>
+
+
+
+      </section>
+
+
+      <div>
+  {/* Other sections of your page */}
+  <section
+  className="profile-section"
+  style={{
+    background: 'linear-gradient(to bottom, #727272 30%, #f0f0f0 60%, white 100%)', // Smoother gradient transition from dark gray to light gray and then white
+    padding: '60px 0', // Increased padding for more space around the content
+    height: 'auto', // Allowing flexible height based on content
+    minHeight: '500px', // Minimum height for the section to ensure consistency
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Soft shadow for added depth
+  }}
+>
+    <div
+      className="profile-cards-container"
+      style={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+        gap: '20px',
+        padding: '20px', // Added padding around the container
+      }}
+    >
+      {teamMembers.map((member, index) => (
+        <div
+          key={index}
+          className="card"
+          style={{
+            margin: '20px 30px',
+            maxWidth: '300px',
+            backgroundColor: 'var(--primary)', // Card background color
+            border: 'none',
+            boxShadow: 'none',
+            textAlign: 'center',
+            borderRadius: '.55rem',
+            transition: 'transform 0.3s ease', // Hover effect
+          }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'} // Hover effect
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'} // Reset on hover out
+        >
+          <div className="card-media" style={{ display: 'flex', justifyContent: 'center' }}>
+            <img
+              src={member.image}
+              alt={`${member.name}'s profile`}
+              className="card-img"
+              style={{
+                height: '150px',
+                width: '150px',
+                objectFit: 'cover',
+                borderRadius: '50%',
+                marginTop: '20px',
+              }}
+            />
+          </div>
+          <div className="card-content" style={{ padding: '16px' }}>
+            <h5>{member.name}</h5>
+            <p>{member.role}</p>
+            <p>{member.description}</p>
+            <div className="social-links" style={{ marginTop: '12px' }}>
+              {member.socialLinks.github && (
+                <IconButton href={member.socialLinks.github} aria-label="github" color="white">
+                  <FaGithub />
+                </IconButton>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
+
+
+
 
       <div className="about-us">
         <h2>About Us</h2>
