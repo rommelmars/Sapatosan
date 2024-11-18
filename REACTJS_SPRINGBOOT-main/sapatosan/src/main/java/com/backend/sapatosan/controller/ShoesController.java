@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,13 +69,13 @@ public class ShoesController {
         // Store the image
         String imageName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         //Joseph
-        //File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+        File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
         
         //Rommel
         //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
 
         //Mikhail
-        File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+        //File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
         
         try {
             file.transferTo(imageFile);
@@ -131,13 +135,13 @@ public class ShoesController {
         if (image != null && !image.isEmpty()) {
             String imageName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
             //Joseph
-            //File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
 
             //Rommel
             //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
 
             //Mikhail
-            File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            //File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
              
             try {
                 image.transferTo(imageFile);
@@ -156,5 +160,47 @@ public class ShoesController {
     public ResponseEntity<Void> deleteShoe(@PathVariable Long id) {
         shoesService.deleteShoe(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/images/{imageName}")
+    public ResponseEntity<Resource> getImage(@PathVariable String imageName) {
+        try {
+            // Define the path where images are stored
+            //MIKHAIL
+            //File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            
+            //JOSEPH
+            File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            //Rommel
+            //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imag
+            
+            if (!imageFile.exists()) {
+
+                return ResponseEntity.notFound().build();
+
+            }
+            
+            // Return the image as a resource
+            Resource resource = new FileSystemResource(imageFile);
+            
+            // Determine the content type based on the file extension
+            MediaType mediaType = MediaType.IMAGE_JPEG; // Default to JPEG
+            String fileExtension = imageName.substring(imageName.lastIndexOf(".") + 1).toLowerCase();
+            if (fileExtension.equals("png")) {
+                mediaType = MediaType.IMAGE_PNG;
+            } else if (fileExtension.equals("gif")) {
+                mediaType = MediaType.IMAGE_GIF;
+            }
+            else if (fileExtension.equals("jpg")) {
+                mediaType = MediaType.IMAGE_JPEG;
+            }
+            
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .body(resource);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
