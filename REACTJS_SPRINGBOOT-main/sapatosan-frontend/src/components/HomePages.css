@@ -71,6 +71,13 @@
   position: relative; /* Positioning context for absolute child */
   
 }
+.video-container2{
+  width: 100%; /* Full width */
+  height: 20vh; /* Fixed height */
+  overflow: hidden; /* Prevent overflow */
+  position: relative; /* Positioning context for absolute child */
+  
+}
 
 .video-container1 video{
   position: absolute; /* Positioning for full coverage */
@@ -84,6 +91,17 @@
   object-fit: cover;
 }
 
+.video-container2 video{
+  position: absolute; /* Positioning for full coverage */
+  min-height: 30%; /* Ensure it covers the height */
+  min-width: 30%; /* Ensure it covers the width */
+  transform: translate(-50%, -50%); /* Center the video */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  width: 80%; /* Full width */
+  height: 50%;
+  object-fit: cover;
+}
 
 
 .featured-shoes {

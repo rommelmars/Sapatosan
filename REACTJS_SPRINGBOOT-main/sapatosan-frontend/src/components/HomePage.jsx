@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../service/apiService';
 import shoe3 from './adidas.png';
-import banner from './creator.png';
+
 import './HomePages.css';
 import logo from './logo.png';
 import shoe2 from './nike.png';
@@ -11,14 +11,14 @@ import shoe4 from './puma.png';
 import shoe5 from './reebok.png';
 import registerImage from './registerImage.png';
 import teaser from './teaser.mp4';
-import { Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { FaGithub } from 'react-icons/fa';
 import mikhailImage from './mikhail.png';
 import gilesImage from './giles.png';
 import ninoImage from './nino.png';
 import rommelImage from './rommel.png';
 import denzImage from './denz.png';
-
+import creator from './creator-developers.mp4';
 
 
 
@@ -372,6 +372,13 @@ const HomePage = () => {
 
       <div>
   {/* Other sections of your page */}
+
+  <div className="video-container2">
+          <video className="video-teaser" autoPlay loop muted>
+            <source src={creator} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
   <section
   className="profile-section"
   style={{
