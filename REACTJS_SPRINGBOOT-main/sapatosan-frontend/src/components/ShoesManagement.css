@@ -1,5 +1,5 @@
 .shoes-management-page {
-    padding: 20px;
+    padding: 50px;
 }
 
 .shoes-management-header {
@@ -27,14 +27,18 @@
 .product-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 20px;
+    padding: 20px;
+    align-items: center; /* Centers form items horizontally */
 }
 
 .product-form input, .product-form select {
-    padding: 8px;
+    padding: 10px;
     font-size: 16px;
-    width: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
 }
 
 .product-form button {
@@ -44,6 +48,7 @@
     color: white;
     border: none;
     cursor: pointer;
+    width: 70%; /* Ensures button is centered */
 }
 
 .product-form button:hover {
@@ -119,4 +124,135 @@ table th {
 
 .small-input {
     width: 50;
+}
+
+.container {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.shoes-management-header {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.shoes-management-header h2 {
+    font-size: 2.5rem; /* Increase the font size for better emphasis */
+    margin: 0;
+    text-align: center;
+    font-weight: 600; /* Make the font weight slightly bolder */
+    color: white; /* Set text color to white to contrast with the gradient */
+    letter-spacing: 1px; /* Add spacing between letters for a cleaner look */
+    text-transform: uppercase; /* Capitalize the header text */
+    font-family: 'Roboto', sans-serif; /* Use a modern font like Roboto (Google Fonts) */
+    padding: 10px 0; /* Add padding for top and bottom spacing */
+    background: linear-gradient(90deg, rgba(254,180,123,1) 21%, rgba(255,126,95,1) 54%, rgba(254,180,123,1) 90%);
+    -webkit-background-clip: text; /* Ensure gradient is clipped to the text */
+    color: transparent; /* Make the text transparent to show gradient */
+}
+
+
+
+.product-form {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-form .form-group {
+    margin-bottom: 15px;
+}
+
+.product-form .form-control {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.product-form .form-control.is-valid {
+    border-color: #28a745;
+}
+
+.product-form .form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.product-form .custom-file-label {
+    font-size: 14px;
+}
+
+.product-form .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    margin-left: 10px;
+}
+
+@media (min-width: 992px) {
+    .col-lg-4 {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+    }
+}
+
+@media (min-width: 576px) {
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* File input customization */
+.custom-file-input {
+    display: none; /* Hide the actual file input */
+}
+
+.custom-file-label {
+    font-size: 1rem;
+    color: #44476a;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.custom-file-label:hover,
+.custom-file-input:focus + .custom-file-label {
+    background-color: #f0f0f0; /* Light gray on hover */
+    border-color: #007bff;
+    box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.2); /* Light shadow on hover */
+}
+
+/* Image preview */
+.image-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 500px; /* Limit the max width of the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    object-fit: contain; /* Ensure the image fits within the specified width */
 }

@@ -22,6 +22,7 @@ function ShoesManagement() {
     const [addShoeError, setAddShoeError] = useState("");
     const [loading, setLoading] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [fileName, setFileName] = useState('');
 
     useEffect(() => {
         fetchShoes();
@@ -66,8 +67,20 @@ function ShoesManagement() {
         setNewShoe((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleImageChange = (e) => {
-        setImageFile(e.target.files[0]);
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setImageFile(file);
+            setFileName(file.name); // Store the file name
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setNewShoe((prev) => ({
+                    ...prev,
+                    imageUrl: reader.result, // Set image preview
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     const handleConfirmAction = (message, action) => {
@@ -108,7 +121,10 @@ function ShoesManagement() {
             console.error('Failed to add shoe:', error);
             setAddShoeError('Failed to add shoe: ' + error.message);
         }
+        
     };
+
+    
 
     const updateShoe = async () => {
         const isChanged = Object.keys(newShoe).some(
@@ -172,6 +188,7 @@ function ShoesManagement() {
         setImageFile(null);
         setAddShoeError("");
         setIsEditMode(false);
+        document.getElementById("customFile").value = "";
     };
 
     const handleEditClick = (shoe) => {
@@ -254,13 +271,48 @@ function ShoesManagement() {
         </option>
     ))}
 </select>
-                <input type="file" onChange={handleImageChange} accept="image/*" className="small-input" />
-                {newShoe.imageUrl && !imageFile && (
-                    <div>
-                        <p>Current Image:</p>
-                        <img src={newShoe.imageUrl} alt={newShoe.name} width="50" />
-                    </div>
-                )}
+<div className="form-group">
+            {/* File input (styled with class to hide default input) */}
+            <input
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+                className="small-input"
+                id="customFile"
+                style={{ display: 'none' }} // Hide the input itself
+            />
+
+            {/* Label that triggers file selection */}
+            <label htmlFor="customFile" className="custom-file-label">
+                Choose Image
+            </label>
+
+            {/* Display selected file name */}
+            {fileName && (
+                
+                <p style={{ marginTop: '10px', color: 'gray' }}><img
+                src={newShoe.imageUrl}
+                alt={newShoe.name}
+                width="500" // Ensure the width is 500px for display
+                className="image-preview-img"
+            />Selected File: {fileName}
+                </p>
+            )}
+
+            {/* Image preview (if image is uploaded or selected) */}
+            {newShoe.imageUrl && !imageFile && (
+                <div className="image-preview">
+                    <p>Current Image:</p>
+                    <img
+                        src={newShoe.imageUrl}
+                        alt={newShoe.name}
+                        width="500" // Ensure the width is 500px for display
+                        className="image-preview-img"
+                    />
+                </div>
+            )}
+        </div>
+    
                 <button onClick={isEditMode ? updateShoe : addShoe} style={{ backgroundColor: isEditMode ? "orange" : "green" }} disabled={loading}>
                     {isEditMode ? "Update Shoe" : "Add Shoe"}
                 </button>
