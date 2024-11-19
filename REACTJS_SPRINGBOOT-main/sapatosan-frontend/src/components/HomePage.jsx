@@ -3,22 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../service/apiService';
 import shoe3 from './adidas.png';
 
+import { IconButton } from '@mui/material';
+import { FaGithub } from 'react-icons/fa';
+import creator from './creator-developers.mp4';
+import denzImage from './denz.png';
+import gilesImage from './giles.png';
 import './HomePages.css';
 import logo from './logo.png';
+import mikhailImage from './mikhail.png';
 import shoe2 from './nike.png';
+import ninoImage from './nino.png';
 import shoe1 from './pullsnbear.png';
 import shoe4 from './puma.png';
 import shoe5 from './reebok.png';
 import registerImage from './registerImage.png';
-import teaser from './teaser.mp4';
-import { IconButton } from '@mui/material';
-import { FaGithub } from 'react-icons/fa';
-import mikhailImage from './mikhail.png';
-import gilesImage from './giles.png';
-import ninoImage from './nino.png';
 import rommelImage from './rommel.png';
-import denzImage from './denz.png';
-import creator from './creator-developers.mp4';
+import teaser from './teaser.mp4';
 
 
 
@@ -306,7 +306,6 @@ const HomePage = () => {
           <Link to="#">Running Shoes</Link>
           <a href="#">Soccer Shoes</a>
           <a href="#">Sandals Essential</a>
-          <Link to="/admin-login">Admin Page</Link>
           
 
         </nav>

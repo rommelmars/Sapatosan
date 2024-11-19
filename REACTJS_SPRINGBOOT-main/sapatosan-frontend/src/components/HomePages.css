@@ -28,9 +28,10 @@
 
 
 .logo1 {
-  height: 150px; /* Adjust the size of the logo */
+  height: 120px; /* Adjust the size of the logo */
   width: auto;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+  margin-left: 20px;
 }
 
 .logo-container .logo1 {
@@ -63,6 +64,20 @@
 .account-links a:hover {
   color: #0056b3;
 }
+.register-link {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.register-link-text {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.register-link-text:hover {
+  text-decoration: underline;
+}
 
 .video-container1{
   width: 100%; /* Full width */
@@ -73,7 +88,7 @@
 }
 .video-container2{
   width: 100%; /* Full width */
-  height: 20vh; /* Fixed height */
+  height: 30vh; /* Fixed height */
   overflow: hidden; /* Prevent overflow */
   position: relative; /* Positioning context for absolute child */
   
@@ -136,7 +151,7 @@ font-size: 80px;
 
 .shoe-sample {
   flex: 0 0 auto; /* Prevent shrinking */
-  width: 19.5%; /* Adjust width to fit more shoes in the row */
+  width: 18%; /* Adjust width to fit more shoes in the row */
   text-align: center; /* Center text */
 }
 

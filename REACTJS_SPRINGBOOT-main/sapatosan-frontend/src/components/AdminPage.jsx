@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AdminLogin from "./AdminLogin";
 import "./AdminPage.css";
 import shoeImage from './registerImage.png'; // Import the logo image
-
+ 
 function AdminPage() {
     const [products, setProducts] = useState([]);
     const [newProduct, setNewProduct] = useState({
@@ -16,13 +16,13 @@ function AdminPage() {
     });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [token, setToken] = useState("");
-
+ 
     useEffect(() => {
         if (isLoggedIn) {
             fetchProducts();
         }
     }, [isLoggedIn]);
-
+ 
     const fetchProducts = async () => {
         try {
             const response = await axios.get("http://localhost:8080/api/admin/products", {
@@ -35,12 +35,12 @@ function AdminPage() {
             console.error("Failed to fetch products:", error);
         }
     };
-
+ 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewProduct((prev) => ({ ...prev, [name]: value }));
     };
-
+ 
     const addProduct = async () => {
         try {
             await axios.post("http://localhost:8080/api/admin/products", newProduct, {
@@ -54,7 +54,7 @@ function AdminPage() {
             console.error("Failed to add product:", error);
         }
     };
-
+ 
     const deleteProduct = async (id) => {
         try {
             await axios.delete(`http://localhost:8080/api/admin/products/${id}`, {
@@ -67,12 +67,12 @@ function AdminPage() {
             console.error("Failed to delete product:", error);
         }
     };
-
+ 
     const handleLogin = (token) => {
         setIsLoggedIn(true);
         setToken(token);
     };
-
+ 
     return (
         <div className="admin-page">
             {!isLoggedIn ? (
@@ -135,5 +135,5 @@ function AdminPage() {
         </div>
     );
 }
-
+ 
 export default AdminPage;

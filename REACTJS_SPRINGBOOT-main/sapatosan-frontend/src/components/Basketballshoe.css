@@ -13,11 +13,11 @@
   
   .store-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #000000;
-    color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1 40px; /* Reduce padding to trim height */ 
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .store-logo {
@@ -89,6 +89,9 @@
   }
   
   .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -114,7 +117,7 @@
     color: #333;
   }
   
-  .add-to-cart-button {
+  .add-to-cart-button1{
     padding: 8px 16px;
     background-color: #222;
     color: white;

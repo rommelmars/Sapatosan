@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { fetchShoes, getCurrentUsername } from '../service/apiService'; // Import fetchShoes
 import './Basketballshoe.css';
-import { getCurrentUsername, fetchShoes } from '../service/apiService'; // Import fetchShoes
 import logo from './logo.png';
 
 const BasketballShoe = () => {
@@ -41,7 +41,7 @@ const BasketballShoe = () => {
     <div className="basketball-store-container">
       {/* Header Section */}
       <header className="store-header">
-        <img src={logo} alt="Sapatosan Logo" className="logo" />
+        <img src={logo} alt="Sapatosan Logo" className="logo1" />
         <nav className="nav-links">
           <Link to="/listings">Home</Link>
           <Link to="/basketball-shoes">Basketball Shoes</Link>
@@ -94,24 +94,63 @@ const BasketballShoe = () => {
                 />
                 <h3>{product.name}</h3>
                 <p>{`₱${product.price}`}</p>
-                <button className="add-to-cart-button">Add to Cart</button>
+                <button className="add-to-cart-button1">Add to Cart</button>
               </div>
             ))
           )}
         </div>
       </section>
 
-     
-
-      {/* Footer */}
-      <footer className="store-footer">
-        <p>&copy; 2024 Sapatosan. All rights reserved.</p>
-        <div className="footer-links">
-          <a href="#privacy">Privacy Policy</a>
-          <a href="#terms">Terms of Service</a>
-          <a href="#contact">Contact Us</a>
+      {/* Footer Section */}
+      <div className="footer">
+        <div className="footer-content">
+          <a href="/">
+            <img
+              src={logo}
+              alt="Sapatosan Logo"
+              className="footer-logo"
+              onClick={() => window.location.reload()}
+            />
+          </a>
+          <div className="social-media-icons">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noreferrer"
+              className="social-icon"
+            >
+              <i className="fa-brands fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noreferrer"
+              className="social-icon"
+            >
+              <i className="fa-brands fa-twitter"></i>
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              className="social-icon"
+            >
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noreferrer"
+              className="social-icon"
+            >
+              <i className="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
         </div>
-      </footer>
+        <div className="footer-bottom">
+          <p>&copy; 2024 Sapatosan. All rights reserved.</p>
+        </div>
+      </div>
     </div>
   );
 };

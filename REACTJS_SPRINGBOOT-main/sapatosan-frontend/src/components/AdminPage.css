@@ -1,7 +1,7 @@
 .admin-page {
     padding: 20px;
 }
-
+ 
 .admin-header {
     display: flex;
     align-items: center;
@@ -10,33 +10,33 @@
     margin-bottom: 20px;
     border-bottom: 2px solid #ddd;
 }
-
+ 
 .admin-logo {
     width: 120px; /* Increase logo size */
     height: auto;
     margin-right: 20px;
 }
-
+ 
 .admin-header h2 {
     font-size: 2rem; /* Larger header text */
     margin: 0;
     text-align: center;
     flex-grow: 1; /* Center-align the text */
 }
-
+ 
 .product-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
-
+ 
 .product-form input, .product-form select {
     padding: 8px;
     font-size: 16px;
     width: 100%;
 }
-
+ 
 .product-form button {
     padding: 10px;
     font-size: 16px;
@@ -45,32 +45,32 @@
     border: none;
     cursor: pointer;
 }
-
+ 
 .product-form button:hover {
     background-color: #45a049;
 }
-
+ 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
-
+ 
 table th, table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
-
+ 
 table th {
     background-color: #f2f2f2;
 }
-
+ 
 .product-item img {
     max-width: 100px;
     height: auto;
 }
-
+ 
 .product-item button {
     margin-right: 5px;
     padding: 5px 10px;
@@ -79,15 +79,15 @@ table th {
     border: none;
     cursor: pointer;
 }
-
+ 
 .product-item button:hover {
     background-color: #0b7dda;
 }
-
+ 
 .product-item button:last-child {
     background-color: #f44336;
 }
-
+ 
 .product-item button:last-child:hover {
     background-color: #da190b;
 }

@@ -58,7 +58,7 @@ const ShoeListings = () => {
     <div className="shoe-listings-container">
       {/* Header Section */}
       <header className="header">
-      <img src={logo} alt="Sapatosan Logo" className="logo" onClick={() => window.location.reload()} />
+      <img src={logo} alt="Sapatosan Logo" className="logo1" onClick={() => window.location.reload()} />
         <nav className="nav-links">
         <Link to="/basketball-shoes">Basketball Shoes</Link>
           <a href="#">Casual Shoes</a>
@@ -188,7 +188,7 @@ const ShoeListings = () => {
       {/* Footer Section */}
 <div className="footer">
   <div className="footer-content">
-    <img src={logo} alt="Sapatosan Logo" className="logo" onClick={() => window.location.reload()} />
+    <img src={logo} alt="Sapatosan Logo" className="logo1" onClick={() => window.location.reload()} />
     <div className="social-media-icons">
       <a
         href="https://facebook.com"
