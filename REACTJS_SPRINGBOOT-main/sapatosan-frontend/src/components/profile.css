@@ -1,0 +1,120 @@
+/* Profile Image Styling */
+.profile-image {
+    text-align: center;
+    margin-bottom: 30px; /* Increased space for better separation */
+  }
+  
+  .profile-image-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 15px; /* Center image and add spacing below */
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #007bff; /* Highlight border with theme color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Modern shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation for hover effect */
+  }
+  
+  .profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  /* Add hover effect for the profile image */
+  .profile-image-container:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  /* File input styling */
+  .profile-image input {
+    display: block;
+    margin: 10px auto 0; /* Center and space input below image */
+    font-size: 0.9rem; /* Smaller font size */
+    padding: 8px;
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for input */
+    transition: border-color 0.3s ease;
+  }
+  
+  .profile-image input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+  }
+  
+  /* Profile Details Styling */
+  .profile-details {
+    background-color: #f9f9f9; /* Light background for better contrast */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for profile section */
+  }
+  
+  .profile-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center; /* Center-align the header */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+  }
+  
+  .profile-info label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #555; /* Slightly darker text for labels */
+  }
+  
+  .profile-info input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff; /* White background for inputs */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile-info input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Glow effect on focus */
+  }
+  
+  .edit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .edit-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle hover shadow */
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .profile-image-container {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .profile-details {
+      padding: 15px;
+    }
+  
+    .edit-button {
+      padding: 10px;
+    }
+  }
+  

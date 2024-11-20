@@ -68,13 +68,13 @@ public class ShoesController {
         // Store the image
         String imageName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         //Joseph
-        //File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+        File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
         
         //Rommel
-        File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+        //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
 
         //Mikhail
-        File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+        //File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
         
         try {
             file.transferTo(imageFile);
@@ -134,13 +134,13 @@ public class ShoesController {
         if (image != null && !image.isEmpty()) {
             String imageName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
             //Joseph
-            //File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
 
             //Rommel
-            File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
 
             //Mikhail
-            File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            //File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
              
             try {
                 image.transferTo(imageFile);
@@ -166,7 +166,7 @@ public ResponseEntity<Void> deleteShoe(@PathVariable Long id) {
     ShoesEntity shoe = shoeOpt.get();
     // Delete the image file if it exists
             //Joseph
-            //String imagePath = "C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + shoe.getImage();
+            String imagePath = "C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + shoe.getImage();
 
             //Rommel
             //String imagePath = "C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + shoe.getImage();
@@ -191,16 +191,16 @@ public ResponseEntity<Void> deleteShoe(@PathVariable Long id) {
         try {
             // Define the path where images are stored
             //MIKHAIL
-            File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            //File imageFile = new File("E:\\ALL PROJECTS AND DEMOS FOR LEARNING\\Github_Repos\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
             
             //JOSEPH
-            //File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+            File imageFile = new File("C:\\Users\\Hp\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
             //Rommel
-<<<<<<< Updated upstream
+
             //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + image
-=======
-            File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
->>>>>>> Stashed changes
+
+            //File imageFile = new File("C:\\Users\\User\\Documents\\GitHub\\Sapatosan\\REACTJS_SPRINGBOOT-main\\sapatosan-frontend\\src\\shoes\\" + imageName);
+
             
             if (!imageFile.exists()) {
 

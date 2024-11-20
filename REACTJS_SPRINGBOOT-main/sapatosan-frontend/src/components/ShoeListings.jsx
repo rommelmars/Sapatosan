@@ -57,9 +57,10 @@ const ShoeListings = () => {
   return (
     <div className="shoe-listings-container">
       {/* Header Section */}
-      <header className="header">
+      <header className="header1">
       <img src={logo} alt="Sapatosan Logo" className="logo1" onClick={() => window.location.reload()} />
         <nav className="nav-links">
+        <Link to="/listings">Home</Link>
         <Link to="/basketball-shoes">Basketball Shoes</Link>
           <a href="#">Casual Shoes</a>
           <Link to="#">Running Shoes</Link>
@@ -73,8 +74,7 @@ const ShoeListings = () => {
             <div className="menu-item">
               <p>Welcome, {username}</p>
               <div className="submenu">
-                <span>Profile</span>
-                <span>Wallet</span>
+                <span><Link to="/profile">Profile</Link></span>
                 <span>Orders</span>
                 <span>My cart</span>
                 <span 
