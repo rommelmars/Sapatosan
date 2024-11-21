@@ -8,7 +8,7 @@ const Checkout = () => {
 
   const handlePlaceOrder = () => {
     alert('Order placed successfully!');
-    // Additional logic: Clear cart, redirect, or save order in database
+    // Additional logic: Clear cart, redirect, or save order in dat abase
   };
 
   return (
@@ -33,3 +33,5 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+

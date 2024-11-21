@@ -74,9 +74,9 @@ const ShoeListings = () => {
             <div className="menu-item">
               <p>Welcome, {username}</p>
               <div className="submenu">
-                <span><Link to="/profile">Profile</Link></span>
-                <span>Orders</span>
-                <span>My cart</span>
+                <span> <Link to="/profile">Profile</Link> </span>
+                <span> <Link to="/orders">Orders </Link> </span>
+                <span> <Link to="/cart">My cart</Link> </span>
                 <span 
                   onClick={handleLogout} 
                   role="button" 

@@ -57,18 +57,16 @@ const BasketballShoe = () => {
             <div className="menu-item">
               <p>Welcome, {username}</p>
               <div className="submenu">
-                <span>Profile</span>
-                <span>Wallet</span>
-                <span>Orders</span>
-                <span>My cart</span>
-                <span
-                  onClick={handleLogout}
-                  role="button"
-                  tabIndex="0"
-                  aria-label="Logout"
-                >
+              <span> <Link to="/profile">Profile</Link> </span>
+                <span> <Link to="/orders">Orders </Link> </span>
+                <span> <Link to="/cart">My cart</Link> </span>
+                <span 
+                  onClick={handleLogout} 
+                  role="button" 
+                  tabIndex="0" 
+                  aria-label="Logout">
                   Logout
-                </span>
+              </span>
               </div>
             </div>
           ) : (

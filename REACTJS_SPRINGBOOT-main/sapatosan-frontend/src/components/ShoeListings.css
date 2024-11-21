@@ -198,6 +198,12 @@ body, html {
   transition: background-color 0.3s ease;
 }
 
+.submenu span a {
+  text-decoration: none;
+  color: inherit; /* Optional: Matches the surrounding text color */
+}
+
+
 .add-to-cart-button:hover,
 .close-modal-button:hover {
   background-color: #555;

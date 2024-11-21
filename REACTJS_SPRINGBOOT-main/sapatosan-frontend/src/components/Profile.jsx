@@ -40,9 +40,7 @@ const Profile = () => {
   };
 
 
-  const paths ={
-    profile: "/profile"
-  }
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -79,9 +77,9 @@ const Profile = () => {
             <div className="menu-item">
               <p>Welcome, {username}</p>
               <div className="submenu">
-                <span> <Link to={paths.profile}>Profile</Link></span>
-                <span><Link>Orders</Link></span>
-                <span>My cart</span>
+              <span> <Link to="/profile">Profile</Link></span>
+                <span><Link to="/orders">Orders</Link></span>
+                <span><Link to="/cart">My cart</Link></span>
                 <span 
                   onClick={handleLogout} 
                   role="button" 
