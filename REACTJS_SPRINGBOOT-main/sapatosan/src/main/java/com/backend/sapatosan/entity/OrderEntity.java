@@ -3,6 +3,9 @@ package com.backend.sapatosan.entity;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
 @Table(name = "orders")
 public class OrderEntity {
@@ -13,6 +16,7 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "id", nullable = false)
+    @JsonIgnore
     private UserInfo userInfo;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -22,6 +26,9 @@ public class OrderEntity {
     private String status;
     private Integer quantity;
     private Double price;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+
 
     // Getters and Setters
     public Long getOrderID() {
@@ -79,4 +86,5 @@ public class OrderEntity {
     public void setPrice(Double price) {
         this.price = price;
     }
+
 }

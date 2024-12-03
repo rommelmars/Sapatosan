@@ -31,8 +31,12 @@ public class CartController {
 
     @PostMapping
     public ResponseEntity<CartEntity> createCart(@RequestBody CartEntity cart) {
-        CartEntity newCart = cartService.createCart(cart);
-        return new ResponseEntity<>(newCart, HttpStatus.CREATED);
+        try {
+            CartEntity newCart = cartService.createCart(cart);
+            return new ResponseEntity<>(newCart, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")

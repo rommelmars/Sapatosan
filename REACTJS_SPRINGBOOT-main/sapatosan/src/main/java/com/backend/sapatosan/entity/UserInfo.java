@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "carts"})
 public class UserInfo {
 
     @Id
@@ -35,6 +40,14 @@ public class UserInfo {
     @Email(message = "Email should be valid")
     @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartEntity> carts;
+
+    
+    @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<OrderEntity> orders;
 
     // Getters and Setters
     public Long getId() {
@@ -69,5 +82,19 @@ public class UserInfo {
         this.email = email;
     }
 
+    public List<CartEntity> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<CartEntity> carts) {
+        this.carts = carts;
+    }
     
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
+    }
 }

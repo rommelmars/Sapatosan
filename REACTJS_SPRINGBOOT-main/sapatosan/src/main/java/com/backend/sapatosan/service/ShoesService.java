@@ -40,6 +40,9 @@ public class ShoesService {
 
     // Delete a shoe by ID
     public void deleteShoe(Long id) {
+        // Delete references in the cart_shoes table
+        shoesRepository.deleteReferencesInCartShoes(id);
+
         shoesRepository.deleteById(id);
     }
     

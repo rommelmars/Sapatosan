@@ -1,6 +1,9 @@
 package com.backend.sapatosan.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
+
+
 
 @Entity
 @Table(name = "cart")
@@ -12,11 +15,21 @@ public class CartEntity {
     
     @ManyToOne
     @JoinColumn(name = "id", nullable = false)  // Matches UserInfo.id
+    
     private UserInfo userInfo;
 
-    @ManyToOne
-    @JoinColumn(name = "productid", nullable = false)  // Matches ShoesEntity.productid
-    private ShoesEntity shoes;
+    @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)  // Matches OrderEntity.orderID
+    
+    private OrderEntity order;
+
+    @ManyToMany
+    @JoinTable(
+        name = "cart_shoes",
+        joinColumns = @JoinColumn(name = "cart_id"),
+        inverseJoinColumns = @JoinColumn(name = "productid")
+    )
+    private List<ShoesEntity> shoes;
 
     private String status;
 
@@ -37,12 +50,20 @@ public class CartEntity {
         this.userInfo = userInfo;
     }
 
-    public ShoesEntity getShoes() {
+    public List<ShoesEntity> getShoes() {
         return shoes;
     }
 
-    public void setShoes(ShoesEntity shoes) {
+    public void setShoes(List<ShoesEntity> shoes) {
         this.shoes = shoes;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEntity order) {
+        this.order = order;
     }
 
     public String getStatus() {

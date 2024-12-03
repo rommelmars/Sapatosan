@@ -2,11 +2,13 @@ package com.backend.sapatosan.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "shoes")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "carts"})
 public class ShoesEntity {
 
     @Id
@@ -25,6 +27,8 @@ public class ShoesEntity {
     @JsonBackReference // Prevent circular serialization for bidirectional relationship
     private CategoryEntity category;
 
+    @ManyToMany(mappedBy = "shoes")
+    private List<CartEntity> carts;
     // Getters and Setters
     public Long getProductid() {
         return productid;
@@ -87,5 +91,13 @@ public class ShoesEntity {
     @JsonProperty("categoryName")
     public String getCategoryName() {
         return category != null ? category.getCategoryName() : null;
+    }
+
+    public List<CartEntity> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<CartEntity> carts) {
+        this.carts = carts;
     }
 }

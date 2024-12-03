@@ -141,7 +141,7 @@ function ShoesManagement() {
         formData.append('description', newShoe.description);
         formData.append('price', newShoe.price);
         formData.append('stock_quantity', newShoe.stock_quantity);
-        formData.append('category', newShoe.category);  // Add category to form data
+        formData.append('categoryID', newShoe.category);  // Add category to form data
     
         if (imageFile) {
             formData.append('image', imageFile);
@@ -199,7 +199,7 @@ function ShoesManagement() {
             stock_quantity: shoe.stock_quantity,
             imageUrl: shoe.imageUrl,
             productid: shoe.productid,
-            category: shoe.category // Set the category during edit
+            categoryID: shoe.category // Set the category during edit
         });
         setOriginalShoe({
             name: shoe.name,
@@ -208,7 +208,7 @@ function ShoesManagement() {
             stock_quantity: shoe.stock_quantity,
             imageUrl: shoe.imageUrl,
             productid: shoe.productid,
-            category: shoe.category
+            categoryID: shoe.category
         });
         setIsEditMode(true);
     };
