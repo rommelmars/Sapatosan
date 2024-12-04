@@ -301,13 +301,9 @@ const HomePage = () => {
   </Link>
         <nav className="nav-links">
 
-          <Link to="#">Basketball Shoes</Link>
-          <a href="#">Casual Shoes</a>
-          <Link to="#">Running Shoes</Link>
-          <a href="#">Soccer Shoes</a>
-          <a href="#">Sandals Essential</a>
-          
-
+          <Link to="/basketball-shoes">Basketball Shoes</Link>
+          <Link to="/casual-shoes">Casual Shoes</Link>
+          <Link to="/running-shoes">Running Shoes</Link>
         </nav>
 
 

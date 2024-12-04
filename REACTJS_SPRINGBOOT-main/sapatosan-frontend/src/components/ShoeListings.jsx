@@ -61,11 +61,9 @@ const ShoeListings = () => {
       <img src={logo} alt="Sapatosan Logo" className="logo1" onClick={() => window.location.reload()} />
         <nav className="nav-links">
         <Link to="/listings">Home</Link>
-        <Link to="/basketball-shoes">Basketball Shoes</Link>
-          <a href="#">Casual Shoes</a>
-          <Link to="#">Running Shoes</Link>
-          <a href="#">Soccer Shoes</a>
-          <a href="#">Sandals Essential</a>
+          <Link to="/basketball-shoes">Basketball Shoes</Link>
+          <Link to="/casual-shoes">Casual Shoes</Link>
+          <Link to="/running-shoes">Running Shoes</Link>
         </nav>
         <div className="user-options">
           {loading ? (
@@ -147,16 +145,8 @@ const ShoeListings = () => {
     </div>
     <p>Explore our range of basketball shoes that offer premium support and style on the court.</p>
   </div>
-        <div className="category-box">
-          <h3>Running</h3>
-          <div className="video-container">
-            <video autoPlay loop muted>
-              <source src={running} type="video/mp4" />
-            </video>
-          </div>
-          <p>Find the perfect running shoes to enhance your speed and comfort for long distances.</p>
-        </div>
-        <div className="category-box">
+  
+  <div className="category-box" onClick={() => navigate('/casual-shoes')} style={{ cursor: 'pointer' }}>
           <h3>Casual</h3>
           <div className="video-container">
             <video autoPlay loop muted>
@@ -165,23 +155,15 @@ const ShoeListings = () => {
           </div>
           <p>Our casual collection blends style and comfort for everyday wear.</p>
         </div>
-        <div className="category-box">
-          <h3>Sandals</h3>
+
+        <div className="category-box" onClick={() => navigate('/running-shoes')} style={{ cursor: 'pointer' }}>
+          <h3>Running</h3>
           <div className="video-container">
             <video autoPlay loop muted>
-              <source src={sandals} type="video/mp4" />
+              <source src={running} type="video/mp4" />
             </video>
           </div>
-          <p>Perfect for warm weather, our sandals offer breathable comfort and style.</p>
-        </div>
-        <div className="category-box">
-          <h3>Soccer</h3>
-          <div className="video-container">
-            <video autoPlay loop muted>
-              <source src={soccer} type="video/mp4" />
-            </video>
-          </div>
-          <p>Get a grip on the game with our high-performance soccer shoes.</p>
+          <p>Find the perfect running shoes to enhance your speed and comfort for long distances.</p>
         </div>
       </div>
 

@@ -4,7 +4,8 @@ import AdminLogin from './components/AdminLogin';
 import AdminPage from './components/AdminPage';
 import Basketballshoe from './components/Basketballshoe';
 import HomePage from './components/HomePage';
-import RunningShoesList from './components/RunningShoesList';
+import RunningShoe from './components/RunningShoe';
+import CasualShoe from './components/CasualShoe';
 import ShoeForm from './components/ShoeForm';
 import ShoeListings from './components/ShoeListings';
 import ShoesManagement from './components/ShoesManagement';
@@ -31,10 +32,11 @@ function App() {
         <Route path="/shoes-management" element={<ShoesManagement />} />
         <Route path="/add-shoe" element={<ShoeForm />} />
         <Route path="/listings" element={<ShoeListings />} />
-        <Route path="/running-shoes" element={<RunningShoesList />} />
+        <Route path="/running-shoes" element={<RunningShoe />} />
+        <Route path="/basketball-shoes" element={<Basketballshoe />} />
+        <Route path="/casual-shoes" element={<CasualShoe />} />
         <Route path="/admin-login" element={<AdminLogin onLogin={handleLogin} />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/basketball-shoes" element={<Basketballshoe />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/cart" element={<Cart />} />
