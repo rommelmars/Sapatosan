@@ -4,7 +4,8 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/users';
 const AUTH_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/auth';
 const SHOES_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/shoes';
-
+const ORDER_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/orders';
+const CART_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/cart';
 // Function to create a new user
 export const createUser = async (userData) => {
     try {
@@ -112,3 +113,46 @@ export const fetchShoes = async () => {
     }
 };
 
+
+export const createCart = async (cart) => {
+    try {
+        const response = await axios.post(`${CART_URL}`, cart, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error creating cart:", error);
+        throw error;
+    }
+};
+
+// Function to fetch orders
+export const fetchOrders = async () => {
+    try {
+        const response = await axios.get(`${ORDER_URL}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        throw error;
+    }
+};
+
+export const fetchCartItems = async () => {
+    try {
+        const response = await axios.get(`${CART_URL}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
+        throw error;
+    }
+};

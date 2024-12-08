@@ -37,6 +37,10 @@ public class CartService {
         return cartRepository.findById(id);
     }
 
+    public List<CartEntity> getCartsByUserId(Long userId) {
+        return cartRepository.findByUserInfoId(userId);
+    }
+
     public CartEntity createCart(CartEntity cart) {
         if (cart.getUserInfo() == null || cart.getUserInfo().getId() == null) {
             throw new RuntimeException("UserInfo cannot be null");

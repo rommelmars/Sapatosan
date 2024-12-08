@@ -29,6 +29,12 @@ public class CartController {
                   .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<CartEntity>> getCartsByUserId(@PathVariable Long userId) {
+        List<CartEntity> carts = cartService.getCartsByUserId(userId);
+        return new ResponseEntity<>(carts, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<CartEntity> createCart(@RequestBody CartEntity cart) {
         try {

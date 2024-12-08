@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchShoes, getCurrentUsername } from '../service/apiService'; // Import fetchShoes
+import { fetchShoes, getCurrentUsername, createCart } from '../service/apiService'; // Import fetchShoes
 import './CasualShoe.css'; // Use the new CSS file
 import logo from './logo.png';
 
@@ -35,6 +35,31 @@ const CasualShoe = () => {
         console.error('Error fetching products:', error);
       });
   }, []);
+
+  const addToCart = (product) => {
+    const cart = {
+      userInfo: { id: 1 }, // Replace with the actual user ID
+      shoes: [{ productid: product.productid }],
+      status: 'Pending',
+      order: {
+        userInfo: { id: 1 }, // Replace with the actual user ID
+        orderDate: new Date().toISOString(),
+        totalAmount: product.price,
+        status: 'Pending',
+        quantity: 1, // Assuming 1 for simplicity
+        price: product.price,
+      }
+    };
+
+    createCart(cart)
+      .then(response => {
+        console.log('Cart created:', response);
+        navigate('/orders'); // Navigate to orders page
+      })
+      .catch(error => {
+        console.error('Error creating cart:', error);
+      });
+  };
 
   const handleLogout = () => {
     setUsername(null);
@@ -95,7 +120,7 @@ const CasualShoe = () => {
                 />
                 <h3>{product.name}</h3>
                 <p>{`₱${product.price}`}</p>
-                <button className="add-to-cart-button1">Add to Cart</button>
+                <button className="add-to-cart-button1" onClick={() => addToCart(product)}>Add to Cart</button>
               </div>
             ))
           )}
