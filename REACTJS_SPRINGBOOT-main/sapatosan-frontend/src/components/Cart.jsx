@@ -26,7 +26,12 @@ const Cart = () => {
     // Fetch cart items for the currently authenticated user from the backend
     fetchCartItems()
       .then(data => {
-        setCartItems(data);
+        // Initialize quantity for each item
+        const itemsWithQuantity = data.map(item => ({
+          ...item,
+          quantity: 1, // Default quantity is 1
+        }));
+        setCartItems(itemsWithQuantity);
         setLoading(false);
       })
       .catch(error => {
@@ -40,11 +45,12 @@ const Cart = () => {
     navigate('/');
   };
 
-  const handleQuantityChange = (id, delta) => {
+  const handleQuantityChange = (id, value) => {
+    const newQuantity = Math.max(Math.min(value, cartItems.find(item => item.cartId === id).shoes[0].stock_quantity), 1);
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.cartId === id
-          ? { ...item, order: { ...item.order, quantity: Math.max(item.order.quantity + delta, 1) } }
+          ? { ...item, quantity: newQuantity }
           : item
       )
     );
@@ -55,11 +61,11 @@ const Cart = () => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((acc, item) => acc + (item.order.price || 0) * item.order.quantity, 0);
+    return cartItems.reduce((acc, item) => acc + (item.shoes[0].price || 0) * item.quantity, 0);
   };
 
   const handleCheckout = () => {
-    // Redirect to checkout page
+    // Redirect to checkout page with cart items and total amount
     navigate('/checkout', { state: { cartItems, total: calculateTotal() } });
   };
 
@@ -70,10 +76,8 @@ const Cart = () => {
         <nav className="nav-links">
           <Link to="/listings">Home</Link>
           <Link to="/basketball-shoes">Basketball Shoes</Link>
-          <a href="#">Casual Shoes</a>
-          <Link to="#">Running Shoes</Link>
-          <a href="#">Soccer Shoes</a>
-          <a href="#">Sandals Essential</a>
+          <Link to="/casual-shoes">Casual Shoes</Link>
+          <Link to="/running-shoes">Running Shoes</Link>
         </nav>
         <div className="user-options">
           {loading ? (
@@ -99,6 +103,7 @@ const Cart = () => {
           )}
         </div>
       </header>
+
       <div className="cart-container">
         <h2>Your Cart</h2>
         {cartItems.length === 0 ? (
@@ -108,18 +113,31 @@ const Cart = () => {
             <ul className="cart-list">
               {cartItems.map((item) => (
                 <li key={item.cartId} className="cart-item">
+                  <img
+                    src={`http://localhost:8080/api/shoes/images/${item.shoes[0].image}`} // Ensure this is correct based on your API setup
+                    alt={item.shoes[0].name}
+                    className="cart-item-image"
+                  />
                   <div className="item-details">
                     <h4>{item.shoes[0].name}</h4>
+                    <p>Cart ID: {item.cartId}</p>
                     <p>{item.shoes[0].description}</p>
                     <p>₱{(item.shoes[0].price || 0).toLocaleString()}</p>
                     <p>{item.shoes[0].categoryName}</p>
+                    <p>Available Stock: {item.shoes[0].stock_quantity}</p>
                   </div>
                   <div className="item-actions">
-                    <button onClick={() => handleQuantityChange(item.cartId, -1)}>
+                    <button onClick={() => handleQuantityChange(item.cartId, item.quantity - 1)}>
                       -
                     </button>
-                    <span>{item.order.quantity}</span>
-                    <button onClick={() => handleQuantityChange(item.cartId, 1)}>
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      onChange={(e) => handleQuantityChange(item.cartId, parseInt(e.target.value))}
+                      min="1"
+                      max={item.shoes[0].stock_quantity}
+                    />
+                    <button onClick={() => handleQuantityChange(item.cartId, item.quantity + 1)}>
                       +
                     </button>
                     <button

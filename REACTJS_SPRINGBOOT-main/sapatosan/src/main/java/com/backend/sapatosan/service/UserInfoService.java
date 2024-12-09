@@ -26,6 +26,10 @@ public class UserInfoService {
         return userInfoRepository.findById(id);
     }
 
+    public Optional<UserInfo> getUserByEmail(String email) {
+        return userInfoRepository.findByEmail(email);
+    }
+
     public UserInfo createUser(UserInfo userInfo) {
         // Encode the password before saving
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));

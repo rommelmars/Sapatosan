@@ -41,6 +41,15 @@ public class CartService {
         return cartRepository.findByUserInfoId(userId);
     }
 
+    public List<CartEntity> getCartsByEmail(String email) {
+        Optional<UserInfo> userInfoOptional = userInfoRepository.findByEmail(email);
+        if (userInfoOptional.isPresent()) {
+            return cartRepository.findByUserInfoId(userInfoOptional.get().getId());
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
     public CartEntity createCart(CartEntity cart) {
         if (cart.getUserInfo() == null || cart.getUserInfo().getId() == null) {
             throw new RuntimeException("UserInfo cannot be null");

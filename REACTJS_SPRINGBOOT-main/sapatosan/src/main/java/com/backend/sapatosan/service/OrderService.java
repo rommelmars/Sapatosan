@@ -1,7 +1,10 @@
 package com.backend.sapatosan.service;
 
 import com.backend.sapatosan.entity.OrderEntity;
+import com.backend.sapatosan.entity.UserInfo;
 import com.backend.sapatosan.repository.OrderRepository;
+import com.backend.sapatosan.repository.UserInfoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private UserInfoRepository userInfoRepository;
+
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
     }
@@ -25,7 +31,14 @@ public class OrderService {
         return orderRepository.findById(id);
     }
 
-    
+    public List<OrderEntity> getOrdersByEmail(String email) {
+        Optional<UserInfo> userInfoOptional = userInfoRepository.findByEmail(email);
+        if (userInfoOptional.isPresent()) {
+            return orderRepository.findByUserInfoId(userInfoOptional.get().getId());
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
 
     public OrderEntity createOrder(OrderEntity order) {
         if (order == null) {
@@ -37,40 +50,43 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public OrderEntity updateOrder(Long id, OrderEntity orderDetails) {
-        if (id == null || orderDetails == null) {
-            throw new IllegalArgumentException("Order ID and details cannot be null");
-        }
+    public OrderEntity updateOrderByUser(String email, OrderEntity orderDetails) {
+        Optional<UserInfo> userInfoOptional = userInfoRepository.findByEmail(email);
+        if (userInfoOptional.isPresent()) {
+            UserInfo userInfo = userInfoOptional.get();
+            List<OrderEntity> userOrders = orderRepository.findByUserInfoId(userInfo.getId());
 
-        Optional<OrderEntity> optionalOrder = orderRepository.findById(id);
-        if (optionalOrder.isPresent()) {
-            OrderEntity existingOrder = optionalOrder.get();
-            
-            // Update user info if provided
-            if (orderDetails.getUserInfo() != null) {
-                existingOrder.setUserInfo(orderDetails.getUserInfo());
-            }
-            
-            // Update other fields if provided
-            if (orderDetails.getOrderDate() != null) {
-                existingOrder.setOrderDate(orderDetails.getOrderDate());
-            }
-            if (orderDetails.getTotalAmount() != null) {
-                existingOrder.setTotalAmount(orderDetails.getTotalAmount());
-            }
-            if (orderDetails.getStatus() != null) {
-                existingOrder.setStatus(orderDetails.getStatus());
-            }
-            if (orderDetails.getQuantity() != null) {
-                existingOrder.setQuantity(orderDetails.getQuantity());
-            }
-            if (orderDetails.getPrice() != null) {
-                existingOrder.setPrice(orderDetails.getPrice());
-            }
+            if (!userOrders.isEmpty()) {
+                OrderEntity existingOrder = userOrders.get(0); // Assuming we update the first order for simplicity
 
-            return orderRepository.save(existingOrder);
+                // Update user info if provided
+                if (orderDetails.getUserInfo() != null) {
+                    existingOrder.setUserInfo(orderDetails.getUserInfo());
+                }
+
+                // Update other fields if provided
+                if (orderDetails.getOrderDate() != null) {
+                    existingOrder.setOrderDate(orderDetails.getOrderDate());
+                }
+                if (orderDetails.getTotalAmount() != null) {
+                    existingOrder.setTotalAmount(orderDetails.getTotalAmount());
+                }
+                if (orderDetails.getStatus() != null) {
+                    existingOrder.setStatus(orderDetails.getStatus());
+                }
+                if (orderDetails.getQuantity() != null) {
+                    existingOrder.setQuantity(orderDetails.getQuantity());
+                }
+                if (orderDetails.getPrice() != null) {
+                    existingOrder.setPrice(orderDetails.getPrice());
+                }
+
+                return orderRepository.save(existingOrder);
+            } else {
+                throw new RuntimeException("No orders found for user with email: " + email);
+            }
         } else {
-            throw new RuntimeException("Order not found with id: " + id);
+            throw new RuntimeException("User not found with email: " + email);
         }
     }
 

@@ -1,7 +1,13 @@
 package com.backend.sapatosan.controller;
 
 import com.backend.sapatosan.entity.CartEntity;
+import com.backend.sapatosan.entity.UserInfo;
 import com.backend.sapatosan.service.CartService;
+import com.backend.sapatosan.service.UserInfoService;
+import com.backend.sapatosan.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +23,12 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private UserInfoService userInfoService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @GetMapping
     public List<CartEntity> getAllCarts() {
         return cartService.getAllCarts();
@@ -29,17 +41,33 @@ public class CartController {
                   .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<CartEntity>> getCartsByUserId(@PathVariable Long userId) {
-        List<CartEntity> carts = cartService.getCartsByUserId(userId);
-        return new ResponseEntity<>(carts, HttpStatus.OK);
+    @GetMapping("/user")
+    public ResponseEntity<List<CartEntity>> getCartsByEmail(HttpServletRequest request) {
+        try {
+            String token = request.getHeader("Authorization").substring(7);
+            String email = jwtUtil.extractEmail(token);
+            List<CartEntity> carts = cartService.getCartsByEmail(email);
+            return new ResponseEntity<>(carts, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<CartEntity> createCart(@RequestBody CartEntity cart) {
+    public ResponseEntity<CartEntity> createCart(@RequestBody CartEntity cart, HttpServletRequest request) {
         try {
-            CartEntity newCart = cartService.createCart(cart);
-            return new ResponseEntity<>(newCart, HttpStatus.CREATED);
+            String token = request.getHeader("Authorization").substring(7);
+            String email = jwtUtil.extractEmail(token);
+            Optional<UserInfo> userInfoOptional = userInfoService.getUserByEmail(email);
+
+            if (userInfoOptional.isPresent()) {
+                UserInfo userInfo = userInfoOptional.get();
+                cart.setUserInfo(userInfo);
+                CartEntity newCart = cartService.createCart(cart);
+                return new ResponseEntity<>(newCart, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
