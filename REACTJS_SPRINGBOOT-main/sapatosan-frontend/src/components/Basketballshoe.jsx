@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchShoes, getCurrentUsername, createCart } from '../service/apiService'; // Import createCart
+import { createCart, fetchShoes, getCurrentUsername } from '../service/apiService'; // Import createCart
 import './Basketballshoe.css';
 import logo from './logo.png';
 
@@ -88,7 +88,6 @@ const BasketballShoe = () => {
       <header className="store-header">
         <img src={logo} alt="Sapatosan Logo" className="logo1" />
         <nav className="nav-links">
-          <Link to="/listings">Home</Link>
           <Link to="/basketball-shoes">Basketball Shoes</Link>
           <Link to="/casual-shoes">Casual Shoes</Link>
           <Link to="/running-shoes">Running Shoes</Link>

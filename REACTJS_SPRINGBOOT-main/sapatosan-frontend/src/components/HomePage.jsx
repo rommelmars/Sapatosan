@@ -299,12 +299,26 @@ const HomePage = () => {
       style={{ cursor: 'pointer' }}
       />
   </Link>
-        <nav className="nav-links">
-
-          <Link to="/basketball-shoes">Basketball Shoes</Link>
-          <Link to="/casual-shoes">Casual Shoes</Link>
-          <Link to="/running-shoes">Running Shoes</Link>
-        </nav>
+  <nav className="nav-links">
+  <Link 
+    to="#" 
+    onClick={openSignInModal} 
+  >
+    Basketball Shoes
+  </Link>
+  <Link 
+    to="#" 
+    onClick={openSignInModal} 
+  >
+    Casual Shoes
+  </Link>
+  <Link 
+    to="#" 
+    onClick={openSignInModal} 
+  >
+    Running Shoes
+  </Link>
+</nav>
 
 
         <div className="account-links">

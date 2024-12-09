@@ -14,11 +14,11 @@ body, html {
 
 .shoe-listings-container {
   width: 100vw;
-
   padding: 0;
 }
+
 .logo {
-  height: 15  0px; /* Adjust the size of the logo */
+  height: 150px; /* Adjust the size of the logo */
   width: auto;
   margin-bottom: 40px;
 }
@@ -34,8 +34,6 @@ body, html {
   padding: 20px 0;
   width: 100%;
 }
-
-
 
 .nav-links a {
   margin: 0 15px;
@@ -54,11 +52,11 @@ body, html {
   padding: 25px;
 }
 
-/* Initially hide the submenu */
+/* Submenu styling */
 .submenu {
   position: absolute;
-  display: none;
-  background-color: white;
+  display: none; /* Initially hidden */
+  background-color: #ffffff;
   padding: 10px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -69,24 +67,29 @@ body, html {
 }
 
 /* Show submenu when hovering over the menu-item */
-.user-options .menu-item:hover .submenu {
+.user-options:hover .submenu {
   display: block;
-    
 }
 
-/* Style for the submenu items */
+/* Submenu item styles */
 .submenu span {
   display: block;
   cursor: pointer;
   padding: 10px;
+  transition: background-color 0.3s ease;
 }
 
-/* Add hover effect for submenu items */
+/* Hover effect for submenu items */
 .submenu span:hover {
   background-color: #dde5ee;
   border-radius: 5px;
 }
 
+/* Submenu links */
+.submenu span a {
+  text-decoration: none;
+  color: inherit; /* Matches surrounding text color */
+}
 
 .login-link {
   margin-left: 10px;
@@ -98,8 +101,6 @@ body, html {
   border-radius: 5px;
   font-size: 14px;
 }
-
-
 
 .hot-deals {
   text-align: center;
@@ -117,10 +118,10 @@ body, html {
 .shoe-card {
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 10px;
+  padding: 3px;
   text-align: center;
-  margin: 10px;
-  width: calc(20% - 20px); /* Five cards per row */
+  margin: 5px;
+  width: calc(20% - 1px); /* Five cards per row */
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -163,8 +164,6 @@ body, html {
   font-size: 0.9em;
 }
 
-
-
 .size-options {
   display: flex;
   justify-content: center;
@@ -198,12 +197,6 @@ body, html {
   transition: background-color 0.3s ease;
 }
 
-.submenu span a {
-  text-decoration: none;
-  color: inherit; /* Optional: Matches the surrounding text color */
-}
-
-
 .add-to-cart-button:hover,
 .close-modal-button:hover {
   background-color: #555;
@@ -228,7 +221,7 @@ body, html {
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
-  width: calc(20% - 20px); /* Five boxes per row */
+  width: calc(% - 15px); /* Five boxes per row */
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -239,7 +232,7 @@ body, html {
 }
 
 .video-container {
-  height: 150px;
+  height: 250px;
   overflow: hidden;
 }
 
