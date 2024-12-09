@@ -1,8 +1,9 @@
 package com.backend.sapatosan.controller;
 
+import com.backend.sapatosan.entity.UserInfo;
 import com.backend.sapatosan.model.AuthRequest;
 import com.backend.sapatosan.util.JwtUtil;
-
+import com.backend.sapatosan.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    @Autowired
+    private UserInfoService userInfoService;  // Make sure the service is injected
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -55,8 +56,23 @@ public ResponseEntity<Map<String, String>> getCurrentUser(@RequestHeader(value =
         // Extract email from the token and validate
         String email = jwtUtil.extractEmail(token);
         if (email != null && jwtUtil.validateToken(token, email)) {
+            
+            Optional<UserInfo> optionalUser = userInfoService.getUserByEmail(email);
+            
+            if (!optionalUser.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                     .body(Collections.singletonMap("error", "User not found"));
+            }
+
+            UserInfo user = optionalUser.get();  // Unwrap the Optional
+            
+            // Prepare the response with all the user information, ensuring all values are Strings
             Map<String, String> response = new HashMap<>();
-            response.put("username", email);  // Return the email as the "username"
+            response.put("email", user.getEmail());
+            response.put("username", user.getUsername());
+            response.put("wallet", String.format("%.2f", user.getWallet()));  // Convert wallet (if not a String) to String
+            // Convert other fields to String if necessary
+
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -67,4 +83,6 @@ public ResponseEntity<Map<String, String>> getCurrentUser(@RequestHeader(value =
                              .body(Collections.singletonMap("error", "Error extracting or validating token"));
     }
 }
+
+
 }
