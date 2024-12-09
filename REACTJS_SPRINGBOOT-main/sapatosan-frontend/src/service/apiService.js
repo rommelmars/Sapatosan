@@ -208,3 +208,31 @@ export const createOrder = async (order) => {
         throw error; // Rethrow error for handling in component
     }
 };
+
+export const deleteCartItemsByUser = async (userId) => {
+    try {
+        const response = await axios.delete(`${CART_URL}/user/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting cart items:', error);
+        throw error;
+    }
+};
+
+export const clearCartsByUser = async () => {
+    try {
+        const response = await axios.delete(`${CART_URL}/user`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error clearing cart items:', error);
+        throw error;
+    }
+};
