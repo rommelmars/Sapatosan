@@ -97,12 +97,13 @@ export const getCurrentUsername = async () => {
             },
         });
 
-        return response.data; // Returns the username of the currently authenticated user
+        return response.data; // Returns the username and ID of the currently authenticated user
     } catch (error) {
         console.error('Error fetching current username:', error);
         throw error; // Rethrow error for handling in component
     }
 };
+
 export const fetchShoes = async () => {
     try {
         const response = await axios.get(SHOES_URL);
@@ -129,9 +130,9 @@ export const createCart = async (cart) => {
 };
 
 // Function to fetch orders
-export const fetchOrders = async () => {
+export const fetchOrdersByUsername = async () => {
     try {
-        const response = await axios.get(`${ORDER_URL}`, {
+        const response = await axios.get(`${ORDER_URL}/user`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
@@ -145,7 +146,7 @@ export const fetchOrders = async () => {
 
 export const fetchCartItems = async () => {
     try {
-        const response = await axios.get(`${CART_URL}`, {
+        const response = await axios.get(`${CART_URL}/user`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
@@ -156,3 +157,31 @@ export const fetchCartItems = async () => {
         throw error;
     }
 };
+
+export const createOrder = async (order) => {
+    try {
+      const response = await axios.post(`${API_URL}/orders`, order, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error creating order:', error);
+      throw error;
+    }
+  };
+
+  export const updateOrderByUser = async (order) => {
+    try {
+      const response = await axios.put(`${API_URL}/orders/user`, order, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error updating order:', error);
+      throw error;
+    }
+  };

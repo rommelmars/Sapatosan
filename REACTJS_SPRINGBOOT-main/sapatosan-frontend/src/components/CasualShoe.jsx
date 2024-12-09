@@ -8,6 +8,7 @@ const CasualShoe = () => {
   const [username, setUsername] = useState(null); // Store username state
   const [loading, setLoading] = useState(true); // Track loading state
   const [products, setProducts] = useState([]); // Declare state for products
+  const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
   const navigate = useNavigate(); // Navigation hook
 
   useEffect(() => {
@@ -61,6 +62,14 @@ const CasualShoe = () => {
       });
   };
 
+  const handleImageClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
   const handleLogout = () => {
     setUsername(null);
     navigate('/');
@@ -76,7 +85,6 @@ const CasualShoe = () => {
           <Link to="/basketball-shoes">Basketball Shoes</Link>
           <Link to="/casual-shoes">Casual Shoes</Link>
           <Link to="/running-shoes">Running Shoes</Link>
-          
         </nav>
         <div className="user-options">
           {loading ? (
@@ -117,6 +125,7 @@ const CasualShoe = () => {
                   src={`http://localhost:8080/api/shoes/images/${product.image}`} // Ensure this is correct based on your API setup
                   alt={product.name}
                   className="product-image"
+                  onClick={() => handleImageClick(product)} // Handle image click
                 />
                 <h3>{product.name}</h3>
                 <p>{`₱${product.price}`}</p>
@@ -126,6 +135,17 @@ const CasualShoe = () => {
           )}
         </div>
       </section>
+
+      {/* Image Modal */}
+      {selectedProduct && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={closeModal}>&times;</span>
+            <img src={`http://localhost:8080/api/shoes/images/${selectedProduct.image}`} alt={selectedProduct.name} className="modal-image" />
+            <p className="modal-product-name">{selectedProduct.name}</p>
+          </div>
+        </div>
+      )}
 
       {/* Footer Section */}
       <div className="footer">

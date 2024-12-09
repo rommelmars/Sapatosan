@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCurrentUsername, fetchOrders } from '../service/apiService';
+import { getCurrentUsername, fetchOrdersByUsername } from '../service/apiService';
 import logo from './logo.png';
 
 import './orders.css';
@@ -24,23 +24,26 @@ const Orders = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (username) {
+      // Fetch orders from the backend based on the username
+      fetchOrdersByUsername(username)
+        .then(data => {
+          console.log('Fetched orders:', data); // Debugging statement
+          setOrders(data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error("Error fetching orders:", error);
+          setLoading(false);
+        });
+    }
+  }, [username]);
+
   const handleLogout = () => {
     setUsername(null);
     navigate('/');
   };
-
-  useEffect(() => {
-    // Fetch orders from the backend
-    fetchOrders()
-      .then(data => {
-        setOrders(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching orders:", error);
-        setLoading(false);
-      });
-  }, []);
 
   if (loading) {
     return <p>Loading orders...</p>;
@@ -53,10 +56,8 @@ const Orders = () => {
         <nav className="nav-links">
           <Link to="/listings">Home</Link>
           <Link to="/basketball-shoes">Basketball Shoes</Link>
-          <a href="#">Casual Shoes</a>
-          <Link to="#">Running Shoes</Link>
-          <a href="#">Soccer Shoes</a>
-          <a href="#">Sandals Essential</a>
+          <Link to="/casual-shoes">Casual Shoes</Link>
+          <Link to="/running-shoes">Running Shoes</Link>
         </nav>
         <div className="user-options">
           {username ? (
@@ -110,20 +111,33 @@ const Orders = () => {
                   <p>
                     <strong>Total Amount:</strong> {order.totalAmount}
                   </p>
-                  {order.shoes && order.shoes.length > 0 && (
+                  {order.cartItems && order.cartItems.length > 0 && (
                     <>
-                      <p>
-                        <strong>Product Name:</strong> {order.shoes[0].name}
-                      </p>
-                      <p>
-                        <strong>Description:</strong> {order.shoes[0].description}
-                      </p>
-                      <p>
-                        <strong>Price:</strong> {order.shoes[0].price}
-                      </p>
-                      <p>
-                        <strong>Category:</strong> {order.shoes[0].categoryName}
-                      </p>
+                      {order.cartItems.map((item) => (
+                        <div key={item.cartId} className="cart-item-details">
+                          <p>
+                            <strong>Cart ID:</strong> {item.cartId}
+                          </p>
+                          <p>
+                            <strong>Shoes Name:</strong> {item.shoes[0].name}
+                          </p>
+                          <p>
+                            <strong>Description:</strong> {item.shoes[0].description}
+                          </p>
+                          <p>
+                            <strong>Price:</strong> ₱{(item.shoes[0].price || 0).toLocaleString()}
+                          </p>
+                          <p>
+                            <strong>Stock Quantity:</strong> {item.shoes[0].stock_quantity}
+                          </p>
+                          <p>
+                            <strong>Category:</strong> {item.shoes[0].categoryName}
+                          </p>
+                          <p>
+                            <strong>Order ID:</strong> {order.orderID}
+                          </p>
+                        </div>
+                      ))}
                     </>
                   )}
                 </div>

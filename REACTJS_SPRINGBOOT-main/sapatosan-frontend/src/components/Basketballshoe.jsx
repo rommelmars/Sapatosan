@@ -6,15 +6,18 @@ import logo from './logo.png';
 
 const BasketballShoe = () => {
   const [username, setUsername] = useState(null); // Store username state
+  const [userId, setUserId] = useState(null); // Store user ID state
   const [loading, setLoading] = useState(true); // Track loading state
   const [products, setProducts] = useState([]); // Declare state for products
+  const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the current username from the backend using the token
+    // Fetch the current username and user ID from the backend using the token
     getCurrentUsername()
       .then(response => {
         setUsername(response.username); // Store the username directly
+        setUserId(response.id); // Store the user ID
         setLoading(false);
       })
       .catch(error => {
@@ -24,13 +27,13 @@ const BasketballShoe = () => {
 
     // Fetch products (basketball shoes) from the backend using the fetchShoes function
     fetchShoes()
-    .then(data => {
-      console.log('Fetched products:', data); // Log the fetched products
-      // Filter products to include only those with category name "Basketball"
-      const basketballProducts = data.filter(product => product.categoryName === 'Basketball');
-      console.log('Filtered basketball products:', basketballProducts); // Log the filtered products
-      setProducts(basketballProducts); // Store the filtered products in the state
-    })
+      .then(data => {
+        console.log('Fetched products:', data); // Log the fetched products
+        // Filter products to include only those with category name "Basketball"
+        const basketballProducts = data.filter(product => product.categoryName === 'Basketball');
+        console.log('Filtered basketball products:', basketballProducts); // Log the filtered products
+        setProducts(basketballProducts); // Store the filtered products in the state
+      })
       .catch(error => {
         console.error('Error fetching products:', error);
       });
@@ -42,12 +45,17 @@ const BasketballShoe = () => {
   };
 
   const addToCart = (product) => {
+    if (!username) {
+      console.error('Username is not available');
+      return;
+    }
+
     const cart = {
-      userInfo: { id: 1 }, // Replace with the actual user ID
+      userInfo: { username: username }, // Use the actual username
       shoes: [{ productid: product.productid }],
       status: 'Pending',
       order: {
-        userInfo: { id: 1 }, // Replace with the actual user ID
+        userInfo: { username: username }, // Use the actual username
         orderDate: new Date().toISOString(),
         totalAmount: product.price,
         status: 'Pending',
@@ -66,13 +74,21 @@ const BasketballShoe = () => {
       });
   };
 
+  const handleImageClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="basketball-store-container">
       {/* Header Section */}
       <header className="store-header">
         <img src={logo} alt="Sapatosan Logo" className="logo1" />
         <nav className="nav-links">
-        <Link to="/listings">Home</Link>
+          <Link to="/listings">Home</Link>
           <Link to="/basketball-shoes">Basketball Shoes</Link>
           <Link to="/casual-shoes">Casual Shoes</Link>
           <Link to="/running-shoes">Running Shoes</Link>
@@ -84,7 +100,7 @@ const BasketballShoe = () => {
             <div className="menu-item">
               <p>Welcome, {username}</p>
               <div className="submenu">
-              <span> <Link to="/profile">Profile</Link> </span>
+                <span> <Link to="/profile">Profile</Link> </span>
                 <span> <Link to="/orders">Orders </Link> </span>
                 <span> <Link to="/cart">My cart</Link> </span>
                 <span 
@@ -93,7 +109,7 @@ const BasketballShoe = () => {
                   tabIndex="0" 
                   aria-label="Logout">
                   Logout
-              </span>
+                </span>
               </div>
             </div>
           ) : (
@@ -116,6 +132,7 @@ const BasketballShoe = () => {
                   src={`http://localhost:8080/api/shoes/images/${product.image}`} // Ensure this is correct based on your API setup
                   alt={product.name}
                   className="product-image"
+                  onClick={() => handleImageClick(product)} // Handle image click
                 />
                 <h3>{product.name}</h3>
                 <p>{`₱${product.price}`}</p>
@@ -125,6 +142,18 @@ const BasketballShoe = () => {
           )}
         </div>
       </section>
+
+      {/* Image Modal */}
+      {selectedProduct && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={closeModal}>&times;</span>
+            
+            <img src={`http://localhost:8080/api/shoes/images/${selectedProduct.image}`} alt={selectedProduct.name} className="modal-image" />
+            <p className="modal-product-name">{selectedProduct.name}</p>
+          </div>
+        </div>
+      )}
 
       {/* Footer Section */}
       <div className="footer">
