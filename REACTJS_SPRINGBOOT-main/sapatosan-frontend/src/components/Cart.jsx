@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCurrentUsername, fetchCartItems, updateOrderByUser, clearCartsByUser } from '../service/apiService'; // Import necessary functions
+import { getCurrentUsername, fetchCartItems, updateOrderByUser, clearCartsByUser, deleteCartItemById } from '../service/apiService'; // Import necessary functions
 import logo from './logo.png';
 import './cart.css';
 
@@ -53,7 +53,28 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.cartId !== id));
+    const itemToRemove = cartItems.find(item => item.cartId === id);
+    if (window.confirm('Are you sure to remove your cart?')) {
+      const updatedOrder = {
+        ...itemToRemove.order,
+        status: 'Cancel'
+      };
+      updateOrderByUser(itemToRemove.order.orderID, updatedOrder)
+        .then(() => {
+          deleteCartItemById(id)
+            .then(() => {
+              setCartItems((prevItems) => prevItems.filter((item) => item.cartId !== id));
+            })
+            .catch(error => {
+              console.error('Error deleting cart item:', error);
+              alert('Failed to delete cart item.');
+            });
+        })
+        .catch(error => {
+          console.error('Error updating order status:', error);
+          alert('Failed to update order status.');
+        });
+    }
   };
 
   const calculateTotal = () => {
@@ -66,37 +87,39 @@ const Cart = () => {
   };
 
   const handlePlaceOrder = () => {
-    const updateOrderPromises = cartItems.map(item => {
-      const order = {
-        orderDate: new Date().toISOString(),
-        totalAmount: (item.shoes[0]?.price || 0) * item.quantity,
-        status: 'Complete',
-        quantity: item.quantity,
-        price: item.shoes[0]?.price * item.quantity,
-      };
+    if (window.confirm('Are you sure you want to place the order?')) {
+      const updateOrderPromises = cartItems.map(item => {
+        const order = {
+          orderDate: new Date().toISOString(),
+          totalAmount: (item.shoes[0]?.price || 0) * item.quantity,
+          status: 'Complete',
+          quantity: item.quantity,
+          price: item.shoes[0]?.price * item.quantity,
+        };
 
-      return updateOrderByUser(item.order.orderID, order);
-    });
-
-    Promise.all(updateOrderPromises)
-      .then(responses => {
-        console.log('Orders updated successfully:', responses);
-        alert('Orders updated successfully!');
-        setShowCheckoutModal(false);
-        clearCartsByUser() // Clear the cart items for the user
-          .then(() => {
-            setCartItems([]); // Clear the cart items from the state
-            navigate('/orders'); // Redirect to orders page
-          })
-          .catch(error => {
-            console.error('Error clearing cart items:', error);
-            alert('Failed to clear cart items.');
-          });
-      })
-      .catch(error => {
-        console.error('Error updating orders:', error);
-        alert('Failed to update orders.');
+        return updateOrderByUser(item.order.orderID, order);
       });
+
+      Promise.all(updateOrderPromises)
+        .then(responses => {
+          console.log('Orders updated successfully:', responses);
+          alert('Orders updated successfully!');
+          setShowCheckoutModal(false);
+          clearCartsByUser(userId) // Clear the cart items for the user
+            .then(() => {
+              setCartItems([]); // Clear the cart items from the state
+              navigate('/orders'); // Redirect to orders page
+            })
+            .catch(error => {
+              console.error('Error clearing cart items:', error);
+              alert('Failed to clear cart items.');
+            });
+        })
+        .catch(error => {
+          console.error('Error updating orders:', error);
+          alert('Failed to update orders.');
+        });
+    }
   };
 
   if (loading) {
@@ -161,7 +184,7 @@ const Cart = () => {
                         <p>{item.shoes[0]?.description}</p>
                         <p>₱{(item.shoes[0]?.price || 0).toLocaleString()}</p>
                         <p>{item.shoes[0]?.categoryName}</p>
-                        <p>Available Stock: {item.shoes[0]?.stock_quantity}</p>
+                      
                       </div>
                       <div className="item-actions">
                         <button onClick={() => handleQuantityChange(item.cartId, item.quantity - 1)}>
@@ -177,12 +200,12 @@ const Cart = () => {
                         <button onClick={() => handleQuantityChange(item.cartId, item.quantity + 1)}>
                           +
                         </button>
-                        <button
+                        {/* <button
                           className="remove-button"
                           onClick={() => handleRemoveItem(item.cartId)}
                         >
                           Remove
-                        </button>
+                        </button> */}
                       </div>
                     </>
                   )}

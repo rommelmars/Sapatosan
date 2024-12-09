@@ -105,10 +105,6 @@ public class CartService {
         }
     }
 
-    public void deleteCart(Long id) {
-        cartRepository.deleteById(id);
-    }
-
     public void deleteCartsByUser(Long userId) {
         List<CartEntity> userCarts = cartRepository.findByUserInfoId(userId);
         cartRepository.deleteAll(userCarts);
@@ -119,6 +115,23 @@ public class CartService {
         for (CartEntity cart : userCarts) {
             cart.setShoes(null); // Clear the shoes from the cart
             cartRepository.save(cart);
+        }
+    }
+
+        public void deleteCart(Long id) {
+        cartRepository.deleteById(id);
+    }
+
+    public void deleteCartById(Long cartId) {
+        Optional<CartEntity> cartEntityOptional = cartRepository.findById(cartId);
+        if (cartEntityOptional.isPresent()) {
+            CartEntity cartEntity = cartEntityOptional.get();
+            OrderEntity order = cartEntity.getOrder();
+            order.setStatus("Cancel");
+            orderRepository.save(order);
+            cartRepository.deleteById(cartId);
+        } else {
+            throw new RuntimeException("Cart not found with id " + cartId);
         }
     }
 }

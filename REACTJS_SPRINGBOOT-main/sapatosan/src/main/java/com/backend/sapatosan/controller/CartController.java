@@ -3,6 +3,7 @@ package com.backend.sapatosan.controller;
 import com.backend.sapatosan.entity.CartEntity;
 import com.backend.sapatosan.entity.UserInfo;
 import com.backend.sapatosan.service.CartService;
+import com.backend.sapatosan.service.OrderService;
 import com.backend.sapatosan.service.UserInfoService;
 import com.backend.sapatosan.util.JwtUtil;
 
@@ -25,6 +26,9 @@ public class CartController {
 
     @Autowired
     private UserInfoService userInfoService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -106,6 +110,38 @@ public class CartController {
                 UserInfo userInfo = userInfoOptional.get();
                 cartService.deleteCartsByUser(userInfo.getId());
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{cartId}")
+    public ResponseEntity<Void> deleteCartById(@PathVariable Long cartId, HttpServletRequest request) {
+        try {
+            String token = request.getHeader("Authorization").substring(7);
+            String email = jwtUtil.extractEmail(token);
+            Optional<UserInfo> userInfoOptional = userInfoService.getUserByEmail(email);
+
+            if (userInfoOptional.isPresent()) {
+                UserInfo userInfo = userInfoOptional.get();
+                Optional<CartEntity> cartEntityOptional = cartService.getCartById(cartId);
+
+                if (cartEntityOptional.isPresent()) {
+                    CartEntity cartEntity = cartEntityOptional.get();
+                    if (cartEntity.getUserInfo().getId().equals(userInfo.getId())) {
+                        // Update order status to "Cancel"
+                        cartEntity.getOrder().setStatus("Cancel");
+                        cartService.deleteCartById(cartId);
+                        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                    } else {
+                        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                    }
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
