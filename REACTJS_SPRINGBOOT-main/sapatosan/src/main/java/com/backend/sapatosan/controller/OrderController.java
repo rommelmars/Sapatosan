@@ -2,6 +2,7 @@ package com.backend.sapatosan.controller;
 
 import com.backend.sapatosan.entity.OrderEntity;
 import com.backend.sapatosan.entity.UserInfo;
+import com.backend.sapatosan.service.CartService;
 import com.backend.sapatosan.service.OrderService;
 import com.backend.sapatosan.service.UserInfoService;
 import com.backend.sapatosan.util.JwtUtil;
@@ -10,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest; // Add this import statement
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,9 @@ public class OrderController {
 
     @Autowired
     private UserInfoService userInfoService;
+
+    @Autowired
+    private CartService cartService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -62,9 +66,9 @@ public class OrderController {
         return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
-    // Update order
+    // Update order by user
     @PutMapping("/user")
-    public ResponseEntity<OrderEntity> updateOrderByUser(@RequestBody OrderEntity orderDetails, HttpServletRequest request) {
+    public ResponseEntity<List<OrderEntity>> updateOrdersByUserId(HttpServletRequest request, @RequestBody OrderEntity orderDetails) {
         try {
             String token = request.getHeader("Authorization").substring(7);
             String email = jwtUtil.extractEmail(token);
@@ -73,13 +77,36 @@ public class OrderController {
             if (userInfoOptional.isPresent()) {
                 UserInfo userInfo = userInfoOptional.get();
                 orderDetails.setUserInfo(userInfo);
-                OrderEntity updatedOrder = orderService.updateOrderByUser(email, orderDetails);
-                return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
+                List<OrderEntity> updatedOrders = orderService.updateOrdersByUserId(userInfo.getId(), orderDetails);
+                cartService.clearCartsByUser(userInfo.getId()); // Clear all cart items for the user
+                return new ResponseEntity<>(updatedOrders, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderEntity> updateOrder(@PathVariable Long id, @RequestBody OrderEntity orderDetails) {
+        try {
+            Optional<OrderEntity> existingOrderOpt = orderService.getOrderById(id);
+            if (!existingOrderOpt.isPresent()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            OrderEntity existingOrder = existingOrderOpt.get();
+            existingOrder.setOrderDate(orderDetails.getOrderDate());
+            existingOrder.setTotalAmount(orderDetails.getTotalAmount());
+            existingOrder.setStatus(orderDetails.getStatus());
+            existingOrder.setQuantity(orderDetails.getQuantity());
+            existingOrder.setPrice(orderDetails.getPrice());
+
+            OrderEntity updatedOrder = orderService.updateOrder(existingOrder);
+            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

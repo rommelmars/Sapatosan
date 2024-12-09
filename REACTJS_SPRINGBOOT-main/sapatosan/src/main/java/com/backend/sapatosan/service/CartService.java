@@ -108,4 +108,17 @@ public class CartService {
     public void deleteCart(Long id) {
         cartRepository.deleteById(id);
     }
+
+    public void deleteCartsByUser(Long userId) {
+        List<CartEntity> userCarts = cartRepository.findByUserInfoId(userId);
+        cartRepository.deleteAll(userCarts);
+    }
+
+    public void clearCartsByUser(Long userId) {
+        List<CartEntity> userCarts = cartRepository.findByUserInfoId(userId);
+        for (CartEntity cart : userCarts) {
+            cart.setShoes(null); // Clear the shoes from the cart
+            cartRepository.save(cart);
+        }
+    }
 }

@@ -4,7 +4,6 @@ import com.backend.sapatosan.entity.OrderEntity;
 import com.backend.sapatosan.entity.UserInfo;
 import com.backend.sapatosan.repository.OrderRepository;
 import com.backend.sapatosan.repository.UserInfoRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,15 +49,11 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public OrderEntity updateOrderByUser(String email, OrderEntity orderDetails) {
-        Optional<UserInfo> userInfoOptional = userInfoRepository.findByEmail(email);
-        if (userInfoOptional.isPresent()) {
-            UserInfo userInfo = userInfoOptional.get();
-            List<OrderEntity> userOrders = orderRepository.findByUserInfoId(userInfo.getId());
+    public List<OrderEntity> updateOrdersByUserId(Long userId, OrderEntity orderDetails) {
+        List<OrderEntity> userOrders = orderRepository.findByUserInfoId(userId);
 
-            if (!userOrders.isEmpty()) {
-                OrderEntity existingOrder = userOrders.get(0); // Assuming we update the first order for simplicity
-
+        if (!userOrders.isEmpty()) {
+            for (OrderEntity existingOrder : userOrders) {
                 // Update user info if provided
                 if (orderDetails.getUserInfo() != null) {
                     existingOrder.setUserInfo(orderDetails.getUserInfo());
@@ -81,13 +76,19 @@ public class OrderService {
                     existingOrder.setPrice(orderDetails.getPrice());
                 }
 
-                return orderRepository.save(existingOrder);
-            } else {
-                throw new RuntimeException("No orders found for user with email: " + email);
+                orderRepository.save(existingOrder);
             }
+            return userOrders;
         } else {
-            throw new RuntimeException("User not found with email: " + email);
+            throw new RuntimeException("No orders found for user with ID: " + userId);
         }
+    }
+
+    public OrderEntity updateOrder(OrderEntity order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null");
+        }
+        return orderRepository.save(order);
     }
 
     public void deleteOrder(Long id) {

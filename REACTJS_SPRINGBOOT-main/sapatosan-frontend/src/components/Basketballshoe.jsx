@@ -54,20 +54,12 @@ const BasketballShoe = () => {
       userInfo: { username: username }, // Use the actual username
       shoes: [{ productid: product.productid }],
       status: 'Pending',
-      order: {
-        userInfo: { username: username }, // Use the actual username
-        orderDate: new Date().toISOString(),
-        totalAmount: product.price,
-        status: 'Pending',
-        quantity: 1, // Assuming 1 for simplicity
-        price: product.price,
-      }
     };
 
     createCart(cart)
       .then(response => {
         console.log('Cart created:', response);
-        navigate('/orders'); // Navigate to orders page
+        alert('Product added to cart!');
       })
       .catch(error => {
         console.error('Error creating cart:', error);

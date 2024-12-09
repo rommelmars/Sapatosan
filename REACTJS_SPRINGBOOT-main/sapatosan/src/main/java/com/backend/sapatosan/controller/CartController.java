@@ -92,4 +92,26 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+
+    @DeleteMapping("/user")
+    public ResponseEntity<Void> clearCartsByUser(HttpServletRequest request) {
+        try {
+            String token = request.getHeader("Authorization").substring(7);
+            String email = jwtUtil.extractEmail(token);
+            Optional<UserInfo> userInfoOptional = userInfoService.getUserByEmail(email);
+
+            if (userInfoOptional.isPresent()) {
+                UserInfo userInfo = userInfoOptional.get();
+                cartService.deleteCartsByUser(userInfo.getId());
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
+

@@ -27,7 +27,7 @@ const Orders = () => {
   useEffect(() => {
     if (username) {
       // Fetch orders from the backend based on the username
-      fetchOrdersByUsername(username)
+      fetchOrdersByUsername()
         .then(data => {
           console.log('Fetched orders:', data); // Debugging statement
           setOrders(data);

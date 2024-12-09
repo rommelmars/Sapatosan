@@ -8,15 +8,17 @@ const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState(null); // Store username state
+  const [userId, setUserId] = useState(null); // Store user ID state
   const [loading, setLoading] = useState(true); // Track loading state
   const [cartItems, setCartItems] = useState(location.state?.cartItems || []); // Initialize cart items from location state
   const [total, setTotal] = useState(location.state?.total || 0); // Initialize total amount from location state
 
   useEffect(() => {
-    // Fetch the current username from the backend using the token
+    // Fetch the current username and user ID from the backend using the token
     getCurrentUsername()
       .then(response => {
         setUsername(response.username); // Store the username directly
+        setUserId(response.id); // Store the user ID
         setLoading(false);
       })
       .catch(error => {
@@ -39,7 +41,7 @@ const Checkout = () => {
       price: cartItems.reduce((acc, item) => acc + item.shoes[0].price * item.quantity, 0),
     };
 
-    updateOrderByUser(order)
+    updateOrderByUser(userId, order)
       .then(response => {
         console.log('Order updated successfully:', response);
         alert('Order updated successfully!');
