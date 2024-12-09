@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -60,7 +60,21 @@ public class UserInfoController {
     // Endpoint to fetch the username of the logged-in user
     @GetMapping("/current")
     public ResponseEntity<String> getCurrentUser(Authentication authentication) {
-        String username = authentication.getName(); // Get the logged-in user's username
-        return ResponseEntity.ok(username); // Return the username as a response
+        String email = authentication.getName(); // Get the logged-in user's username
+        return ResponseEntity.ok(email); // Return the username as a response
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserInfo> getCurrentUserInfo(Authentication authentication) {
+        String email = authentication.getName(); // Get the email of the logged-in user
+        Optional<UserInfo> userInfo = userInfoService.getUserByEmail(email); // Fetch user details by email
+    
+        return userInfo
+                .map(user -> ResponseEntity.ok().body(user)) // Return user details if found
+                .orElse(ResponseEntity.notFound().build()); // Return 404 if user is not found
+    }
+    
+
+
+    
 }

@@ -7,6 +7,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allow all paths
@@ -19,9 +22,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
                 //Joseph
-                //.addResourceLocations("file:/C:/Users/Hp/Documents/GitHub/Sapatosan/REACTJS_SPRINGBOOT-main/sapatosan-frontend/src/shoes/");
+                .addResourceLocations("file:/C:/Users/Hp/Documents/GitHub/Sapatosan/REACTJS_SPRINGBOOT-main/sapatosan-frontend/src/shoes/");
                 //Rommel
-                .addResourceLocations("file:/C:/Users/User/Documents/GitHub/Sapatosan/REACTJS_SPRINGBOOT-main/sapatosan-frontend/src/shoes/");
+                //.addResourceLocations("file:/C:/Users/User/Documents/GitHub/Sapatosan/REACTJS_SPRINGBOOT-main/sapatosan-frontend/src/shoes/");
                 //Mikhail
                 //.addResourceLocations("file:/E:/ALL PROJECTS AND DEMOS FOR LEARNING/Github_Repos/Sapatosan/REACTJS_SPRINGBOOT-main/sapatosan-frontend/src/shoes/");
     }

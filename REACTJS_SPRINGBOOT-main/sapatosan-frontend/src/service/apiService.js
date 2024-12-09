@@ -185,3 +185,26 @@ export const createOrder = async (order) => {
       throw error;
     }
   };
+
+  export const getCurrentUserInfo = async () => {
+    try {
+        // Get the token from localStorage (or cookies)
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            throw new Error('User is not authenticated');
+        }
+
+        // Send the token in the request headers for authentication
+        const response = await axios.get(`${AUTH_URL}/current`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data; // Returns the current user's details (username, email, wallet, etc.)
+    } catch (error) {
+        console.error('Error fetching current user info:', error);
+        throw error; // Rethrow error for handling in component
+    }
+};
