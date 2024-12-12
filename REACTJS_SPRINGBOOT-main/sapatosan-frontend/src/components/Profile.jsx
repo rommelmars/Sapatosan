@@ -86,7 +86,7 @@ const Profile = () => {
       <div className="profile-details">
         <h2>Profile</h2>
 
-        {/* Profile Image Section */}
+        {/* Profile Image Section 
         <div className="profile-image">
           <div className="profile-image-container">
             <img
@@ -102,7 +102,7 @@ const Profile = () => {
               aria-label="Upload Profile Image"
             />
           )}
-        </div>
+        </div>*/}
 
         <div className="profile-info">
           <label htmlFor="username">Username:</label>
