@@ -122,6 +122,7 @@ export const createCart = async (cart) => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error("Error creating cart:", error);

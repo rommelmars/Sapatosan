@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCurrentUsername, fetchCartItems, updateOrderByUser, clearCartsByUser, deleteCartItemById } from '../service/apiService'; // Import necessary functions
-import logo from './logo.png';
+import { clearCartsByUser, fetchCartItems, getCurrentUsername, updateOrderByUser } from '../service/apiService'; // Import necessary functions
 import './cart.css';
+import logo from './logo.png';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -52,30 +52,30 @@ const Cart = () => {
     );
   };
 
-  const handleRemoveItem = (id) => {
-    const itemToRemove = cartItems.find(item => item.cartId === id);
-    if (window.confirm('Are you sure to remove your cart?')) {
-      const updatedOrder = {
-        ...itemToRemove.order,
-        status: 'Cancel'
-      };
-      updateOrderByUser(itemToRemove.order.orderID, updatedOrder)
-        .then(() => {
-          deleteCartItemById(id)
-            .then(() => {
-              setCartItems((prevItems) => prevItems.filter((item) => item.cartId !== id));
-            })
-            .catch(error => {
-              console.error('Error deleting cart item:', error);
-              alert('Failed to delete cart item.');
-            });
-        })
-        .catch(error => {
-          console.error('Error updating order status:', error);
-          alert('Failed to update order status.');
-        });
-    }
-  };
+  // const handleRemoveItem = (id) => {
+  //   const itemToRemove = cartItems.find(item => item.cartId === id);
+  //   if (window.confirm('Are you sure to remove your cart?')) {
+  //     const updatedOrder = {
+  //       ...itemToRemove.order,
+  //       status: 'Cancel'
+  //     };
+  //     updateOrderByUser(itemToRemove.order.orderID, updatedOrder)
+  //       .then(() => {
+  //         deleteCartItemById(id)
+  //           .then(() => {
+  //             setCartItems((prevItems) => prevItems.filter((item) => item.cartId !== id));
+  //           })
+  //           .catch(error => {
+  //             console.error('Error deleting cart item:', error);
+  //             alert('Failed to delete cart item.');
+  //           });
+  //       })
+  //       .catch(error => {
+  //         console.error('Error updating order status:', error);
+  //         alert('Failed to update order status.');
+  //       });
+  //   }
+  // };
 
   const calculateTotal = () => {
     return cartItems.reduce((acc, item) => acc + ((item.shoes[0]?.price || 0) * item.quantity), 0);
