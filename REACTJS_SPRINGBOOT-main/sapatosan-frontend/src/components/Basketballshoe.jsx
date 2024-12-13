@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { createCart, fetchShoes, getCurrentUsername } from '../service/apiService'; // Import createCart
 import './Basketballshoe.css';
+import 'react-toastify/dist/ReactToastify.css';
 import logo from './logo.png';
 
 const BasketballShoe = () => {
@@ -59,10 +61,11 @@ const BasketballShoe = () => {
     createCart(cart)
       .then(response => {
         console.log('Cart created:', response);
-        alert('Product added to cart!');
+        toast.success('Product added to cart!');
       })
       .catch(error => {
         console.error('Error creating cart:', error);
+        toast.error('Failed to add product to cart.');
       });
   };
 
@@ -196,6 +199,9 @@ const BasketballShoe = () => {
           <p>&copy; 2024 Sapatosan. All rights reserved.</p>
         </div>
       </div>
+
+      {/* Toast Container for notifications */}
+      <ToastContainer />
     </div>
   );
 };

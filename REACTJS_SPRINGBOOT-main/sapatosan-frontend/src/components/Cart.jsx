@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { clearCartsByUser, fetchCartItems, getCurrentUsername, updateOrderByUser } from '../service/apiService'; // Import necessary functions
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './cart.css';
 import logo from './logo.png';
 
@@ -67,12 +69,12 @@ const Cart = () => {
   //           })
   //           .catch(error => {
   //             console.error('Error deleting cart item:', error);
-  //             alert('Failed to delete cart item.');
+  //             toast.error('Failed to delete cart item.');
   //           });
   //       })
   //       .catch(error => {
   //         console.error('Error updating order status:', error);
-  //         alert('Failed to update order status.');
+  //         toast.error('Failed to update order status.');
   //       });
   //   }
   // };
@@ -87,7 +89,18 @@ const Cart = () => {
   };
 
   const handlePlaceOrder = () => {
-    if (window.confirm('Are you sure you want to place the order?')) {
+    toast.promise(
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000); // Delay for 2 seconds before placing the order
+      }),
+      {
+        pending: 'Placing your order...',
+        success: 'Order placed successfully!',
+        error: 'Failed to place order.',
+      }
+    ).then(() => {
       const updateOrderPromises = cartItems.map(item => {
         const order = {
           orderDate: new Date().toISOString(),
@@ -96,30 +109,31 @@ const Cart = () => {
           quantity: item.quantity,
           price: item.shoes[0]?.price * item.quantity,
         };
-
+  
         return updateOrderByUser(item.order.orderID, order);
       });
-
+  
       Promise.all(updateOrderPromises)
         .then(responses => {
           console.log('Orders updated successfully:', responses);
-          alert('Orders updated successfully!');
           setShowCheckoutModal(false);
           clearCartsByUser(userId) // Clear the cart items for the user
             .then(() => {
               setCartItems([]); // Clear the cart items from the state
-              navigate('/orders'); // Redirect to orders page
+              setTimeout(() => {
+                navigate('/orders'); // Redirect to orders page after 2 seconds
+              }, 2000);
             })
             .catch(error => {
               console.error('Error clearing cart items:', error);
-              alert('Failed to clear cart items.');
+              toast.error('Failed to clear cart items.');
             });
         })
         .catch(error => {
           console.error('Error updating orders:', error);
-          alert('Failed to update orders.');
+          toast.error('Failed to update orders.');
         });
-    }
+    });
   };
 
   if (loading) {
@@ -184,7 +198,6 @@ const Cart = () => {
                         <p>{item.shoes[0]?.description}</p>
                         <p>₱{(item.shoes[0]?.price || 0).toLocaleString()}</p>
                         <p>{item.shoes[0]?.categoryName}</p>
-                      
                       </div>
                       <div className="item-actions">
                         <button onClick={() => handleQuantityChange(item.cartId, item.quantity - 1)}>
@@ -253,6 +266,7 @@ const Cart = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };
